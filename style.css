@@ -1024,28 +1024,3 @@ footer {
     }
 
 }
-/* फोर्स्ड हेडर फिक्स - सगळ्यात शेवटी जोडा */
-@media (max-width: 767px) {
-    body {
-        padding-top: 100px !important;
-    }
-    
-    header {
-        padding: 5px 3% !important;
-    }
-    
-    .logo img {
-        height: 28px !important;
-    }
-    
-    nav a {
-        font-size: 0.75rem !important;
-        padding: 2px 3px !important;
-    }
-    
-    .lang-btn, .mode-btn {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 0.8rem !important;
-    }
-}
