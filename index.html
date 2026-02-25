@@ -16,122 +16,256 @@
     
 <header>
     <div class="logo">
-        <img src="SushTech_logo_transparent1.png" alt="SushTech Logo" onerror="this.style.display='none';">
+        <img src="SushTech_logo_transparent1.png" alt="Logo">
     </div>
-    <div class="nav-group">
-        <nav>
-            <a href="#home" id="navHome">Home</a>
-            <a href="#pricing" id="navPricing">Pricing</a>
-            <a href="#why-choose" id="navWhyChoose">Why Us</a>
-            <a href="#about" id="navAbout">About</a>
-            <a href="#contact" id="navContact">Contact</a>
+
+    <div class="menu-icon" id="menuToggle">☰</div>
+
+    <!-- Right Side Panel Menu -->
+    <div class="side-panel" id="sidePanel">
+        <div class="panel-header">
+            <div class="panel-logo">
+                <img src="SushTech_logo_transparent1.png" alt="Logo">
+            </div>
+            <div class="close-icon" id="closePanel">✕</div>
+        </div>
+        <nav class="panel-nav">
+            <a href="#home" class="panel-link">Home</a>
+            <a href="#pricing" class="panel-link">Pricing</a>
+            <a href="#why-choose" class="panel-link">Why Us</a>
+            <a href="#about" class="panel-link">About</a>
+            <a href="#contact" class="panel-link">Contact</a>
         </nav>
-        <div class="button-group">
-            <button class="mode-btn" id="modeToggle" aria-label="Toggle light/dark mode">
-                <i class="fas fa-sun"></i>
-            </button>
-            <button class="lang-btn" id="languageToggle" aria-label="Switch language">
-                <i class="fas fa-globe"></i>
-            </button>
+        <div class="panel-footer">
+            <p>© 2026 SushTech</p>
         </div>
     </div>
 </header>
 
+<!-- Overlay for when panel is open -->
+<div class="overlay" id="overlay"></div>
+
 <!-- Hero Section -->
 <section id="home" class="hero">
-    <h2 id="heroTitle">
-        We Help <span class="highlight">Businesses Grow</span> Online
-    </h2>
-    <p id="heroDesc">Strategic websites & digital solutions that turn visitors into customers. Fast, secure, and built for results.</p>
-    <div class="hero-buttons">
-        <a href="#contact" class="btn-primary" id="heroBtnPrimary">Get Free Consultation</a>
-        <a href="#pricing" class="btn-secondary" id="heroBtnSecondary">View Pricing</a>
+    <!-- Add waves and particles first -->
+    <div class="waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
     </div>
-</section>
+    
+    <div class="particles">
+    <!-- Row 1 - Top -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    
+    <!-- Row 2 - Middle -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    
+    <!-- Row 3 - Bottom -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+        <h2>
+            We Help <span class="highlight">Businesses Grow</span> Online
+        </h2>
+        <p>Strategic websites & digital solutions that turn visitors into customers. Fast, secure, and built for results.</p>
+        <div class="hero-buttons">
+            <a href="#contact" class="btn-primary">Get Free Consultation</a>
+            <a href="#pricing" class="btn-secondary">View Pricing</a>
+        </div>
+    </section>
 
 <!-- Pricing Section -->
 <section id="pricing" class="pricing">
-    <h3 id="pricingTitle">Simple, Transparent Pricing</h3>
-    <div class="pricing-subhead" id="pricingSubhead">Choose the plan that fits your needs — no negotiation, no hidden fees.</div>
+    <h3>Simple, Transparent Pricing</h3>
+    <div class="pricing-subhead">Choose the plan that fits your needs — no negotiation, no hidden fees.</div>
     
-    <div class="pricing-grid" id="pricingGrid">
-        <!-- Pricing cards will be populated by JavaScript -->
+    <div class="pricing-grid">
+        <!-- Pricing Card 1 - Basic -->
+        <div class="price-card">
+            <div class="price-badge" style="border-color: #22D3EE; color: #22D3EE;">📄</div>
+            <h4>Basic</h4>
+            <div class="price-amount">₹9,999<small> one-time</small></div>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> <span>5 Pages Website</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Mobile Responsive</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Contact Form</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Social Media Integration</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Basic SEO</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Free SSL Certificate</span></li>
+            </ul>
+            <a href="#contact" class="btn-plan">Get Started</a>
+            <div class="price-footer-note">*Perfect for small businesses</div>
+        </div>
+
+        <!-- Pricing Card 2 - Business (Popular) -->
+        <div class="price-card popular">
+            <div class="popular-badge">Most Popular</div>
+            <div class="price-badge" style="border-color: #2563EB; color: #2563EB;">⚡</div>
+            <h4>Business</h4>
+            <div class="price-amount">₹24,999<small> one-time</small></div>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> <span>10 Pages Website</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Advanced Animations</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Blog/News Section</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Advanced SEO</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Google Analytics</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Priority Support</span></li>
+            </ul>
+            <a href="#contact" class="btn-plan">Get Started</a>
+            <div class="price-footer-note">*Great for growing companies</div>
+        </div>
+
+        <!-- Pricing Card 3 - E-Commerce -->
+        <div class="price-card">
+            <div class="price-badge" style="border-color: #22D3EE; color: #22D3EE;">🛒</div>
+            <h4>E-Commerce</h4>
+            <div class="price-amount">₹49,999<small> one-time</small></div>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> <span>Unlimited Products</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Payment Gateway</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Shopping Cart</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Order Management</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>Inventory System</span></li>
+                <li><i class="fas fa-check-circle"></i> <span>24/7 Support</span></li>
+            </ul>
+            <a href="#contact" class="btn-plan">Get Started</a>
+            <div class="price-footer-note">*Custom quotes for large stores</div>
+        </div>
     </div>
 </section>
 
 <!-- Why Choose Us Section -->
 <section id="why-choose" class="why-choose">
-    <h3 id="whyTitle">Why Choose SushTech?</h3>
-    <div class="choose-grid" id="featuresGrid">
-        <!-- Features will be populated by JavaScript -->
+    <h3>Why Choose SushTech?</h3>
+    <div class="choose-grid">
+        <div class="choose-item">
+            <i class="fas fa-rocket"></i>
+            <h4>Fast Delivery</h4>
+            <p>We respect your time. Get your website live in days, not weeks.</p>
+        </div>
+        <div class="choose-item">
+            <i class="fas fa-tag"></i>
+            <h4>Affordable Pricing</h4>
+            <p>High-quality solutions without breaking your bank.</p>
+        </div>
+        <div class="choose-item">
+            <i class="fas fa-shield-alt"></i>
+            <h4>Secure Hosting</h4>
+            <p>Free SSL and daily backups for peace of mind.</p>
+        </div>
+        <div class="choose-item">
+            <i class="fas fa-headset"></i>
+            <h4>Local Support</h4>
+            <p>We're based in India. Real people, fast response.</p>
+        </div>
     </div>
 </section>
 
 <!-- About Section -->
 <section id="about" class="about">
     <div class="about-content">
-        <h3 id="aboutTitle">About SushTech</h3>
-        <p id="aboutDesc">SushTech is a young and innovative digital agency. We help businesses succeed online with high-quality, affordable and scalable digital solutions. Our team blends technology with creativity.</p>
+        <h3>About SushTech</h3>
+        <p>SushTech is a young and innovative digital agency founded by Sushant Kakade. We help businesses succeed online with high-quality, affordable and scalable digital solutions. Our team blends technology with creativity to deliver exceptional results.</p>
         
         <!-- Founder Card -->
-        <div class="founder-card" id="founderCard">
-            <!-- Founder content will be populated by JavaScript -->
+        <div class="founder-card">
+            <div class="founder-img">
+                <img src="https://via.placeholder.com/120" alt="Sushant Kakade">
+            </div>
+            <div class="founder-info">
+                <h4>Sushant Kakade</h4>
+                <div class="founder-tagline">Founder & Lead Developer</div>
+                <p class="founder-bio">A passionate developer with 5+ years of experience in web development. Started SushTech to help small businesses establish their online presence with affordable solutions.</p>
+                <div class="founder-skills">
+                    <span class="skill-tag">HTML/CSS</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">UI/UX</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- Contact Section -->
 <section id="contact" class="contact">
-    <h3 id="contactTitle">Contact Us</h3>
+    <h3>Contact Us</h3>
     
     <!-- Business Email -->
-    <a href="mailto:contact@sushtech.in" class="business-email" id="businessEmailLink">
+    <a href="mailto:contact@sushtech.in" class="business-email">
         <i class="fas fa-envelope"></i> contact@sushtech.in
     </a>
 
     <div class="contact-wrapper">
         <!-- Contact Info -->
-        <div class="contact-info" id="contactInfo">
-            <!-- Contact info will be populated by JavaScript -->
+        <div class="contact-info">
+            <p><i class="fas fa-phone-alt"></i> <span>+91 90214 96257</span></p>
+            <p><i class="fab fa-whatsapp"></i> <span>+91 90214 96257 (WhatsApp)</span></p>
+            <p><i class="far fa-clock"></i> <span>Mon-Fri: 9 AM - 6 PM</span></p>
+            <a href="https://wa.me/919021496257?text=Hello%20SushTech%2C%20I'm%20interested%20in%20your%20services" 
+               target="_blank" class="chat-btn">
+                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </a>
         </div>
 
-        <!-- Contact Form - SMS Integration -->
+        <!-- Contact Form -->
         <div class="contact-form">
-            <form id="contactForm" action="https://formspree.io/f/your-form-id" method="POST">
+            <form id="contactForm">
                 <div class="form-group">
-                    <input type="text" name="name" id="nameInput" placeholder="Your Name" required>
+                    <input type="text" name="name" placeholder="Your Name" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" name="email" id="emailInput" placeholder="Email Address" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
                 </div>
                 <div class="form-group">
-                    <input type="tel" name="phone" id="phoneInput" placeholder="Phone Number" required>
+                    <input type="tel" name="phone" placeholder="Phone Number" required>
                 </div>
                 <div class="form-group">
-                    <textarea name="message" id="messageInput" placeholder="How can we help you?" required></textarea>
+                    <textarea name="message" placeholder="How can we help you?" required></textarea>
                 </div>
-                <!-- Hidden field for SMS notification -->
-                <input type="hidden" name="_sms" value="+919021496257">
-                <input type="hidden" name="_gotcha" style="display:none">
-                <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+                <button type="submit" class="submit-btn">Send Message</button>
             </form>
-            <div id="formStatus" style="margin-top: 15px; text-align: center;"></div>
+            <div id="formStatus"></div>
         </div>
     </div>
 </section>
 
 <footer>
-    <p id="footerText">© 2026 SushTech. All rights reserved.</p>
+    <p>© 2026 SushTech. All rights reserved.</p>
 </footer>
 
 <!-- Floating WhatsApp Button -->
-<a href="#" class="whatsapp-float" id="whatsappFloat" target="_blank" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/919021496257?text=Hello%20SushTech%2C%20I'm%20interested%20in%20your%20services" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>
 </a>
 
-<!-- Configuration and Scripts -->
-<script src="config.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>
