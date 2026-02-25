@@ -1,158 +1,140 @@
 // script.js - SushTech Main JavaScript
 
-// Initialize variables
-let currentLanguage = 'en';
-let currentMode = 'dark';
-
-// Get configuration
-const config = SUSHITECH_CONFIG;
-
-// DOM Elements
-const navHome = document.getElementById('navHome');
-const navPricing = document.getElementById('navPricing');
-const navWhyChoose = document.getElementById('navWhyChoose');
-const navAbout = document.getElementById('navAbout');
-const navContact = document.getElementById('navContact');
-const heroTitle = document.getElementById('heroTitle');
-const heroDesc = document.getElementById('heroDesc');
-const heroBtnPrimary = document.getElementById('heroBtnPrimary');
-const heroBtnSecondary = document.getElementById('heroBtnSecondary');
-const pricingTitle = document.getElementById('pricingTitle');
-const pricingSubhead = document.getElementById('pricingSubhead');
-const pricingGrid = document.getElementById('pricingGrid');
-const whyTitle = document.getElementById('whyTitle');
-const featuresGrid = document.getElementById('featuresGrid');
-const aboutTitle = document.getElementById('aboutTitle');
-const aboutDesc = document.getElementById('aboutDesc');
-const founderCard = document.getElementById('founderCard');
-const contactTitle = document.getElementById('contactTitle');
-const contactInfo = document.getElementById('contactInfo');
-const businessEmailLink = document.getElementById('businessEmailLink');
-const footerText = document.getElementById('footerText');
-const whatsappFloat = document.getElementById('whatsappFloat');
-const contactForm = document.getElementById('contactForm');
-const submitBtn = document.getElementById('submitBtn');
-
-// Theme Toggle
-const modeToggle = document.getElementById('modeToggle');
-const body = document.body;
-
-modeToggle.addEventListener('click', () => {
-    body.classList.toggle('light-mode');
-    currentMode = body.classList.contains('light-mode') ? 'light' : 'dark';
-    modeToggle.innerHTML = currentMode === 'light' ? 
-        '<i class="fas fa-moon"></i>' : 
-        '<i class="fas fa-sun"></i>';
+// ========== RIGHT SIDE PANEL MENU ==========
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const sidePanel = document.getElementById('sidePanel');
+    const closePanel = document.getElementById('closePanel');
+    const overlay = document.getElementById('overlay');
+    const panelLinks = document.querySelectorAll('.panel-link');
+    
+    // Check if elements exist
+    if (!menuToggle || !sidePanel || !closePanel || !overlay) return;
+    
+    // Function to open panel
+    function openPanel() {
+        sidePanel.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        menuToggle.style.opacity = '0'; // Hide menu icon when panel is open
+    }
+    
+    // Function to close panel
+    function closePanelMenu() {
+        sidePanel.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+        menuToggle.style.opacity = '1'; // Show menu icon
+    }
+    
+    // Open panel when menu icon is clicked
+    menuToggle.addEventListener('click', openPanel);
+    
+    // Close panel when close icon is clicked
+    closePanel.addEventListener('click', closePanelMenu);
+    
+    // Close panel when overlay is clicked
+    overlay.addEventListener('click', closePanelMenu);
+    
+    // Close panel when a link is clicked
+    panelLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            closePanelMenu();
+        });
+    });
+    
+    // Close panel on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && sidePanel.classList.contains('active')) {
+            closePanelMenu();
+        }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 767 && sidePanel.classList.contains('active')) {
+            closePanelMenu();
+        }
+    });
 });
 
-// Language Toggle
-const langToggle = document.getElementById('languageToggle');
+// ========== PRICING CARDS DATA ==========
+const pricingPlans = [
+    {
+        badge: "📄",
+        badgeColor: "#22D3EE",
+        name: "Basic",
+        price: "₹9,999",
+        priceSuffix: "one-time",
+        features: [
+            "5 Pages Website",
+            "Mobile Responsive",
+            "Contact Form",
+            "Social Media Integration",
+            "Basic SEO",
+            "Free SSL Certificate"
+        ],
+        note: "*Perfect for small businesses"
+    },
+    {
+        badge: "⚡",
+        badgeColor: "#2563EB",
+        name: "Business",
+        price: "₹24,999",
+        priceSuffix: "one-time",
+        features: [
+            "10 Pages Website",
+            "Advanced Animations",
+            "Blog/News Section",
+            "Advanced SEO",
+            "Google Analytics",
+            "Priority Support"
+        ],
+        note: "*Great for growing companies",
+        popular: true
+    },
+    {
+        badge: "🛒",
+        badgeColor: "#22D3EE",
+        name: "E-Commerce",
+        price: "₹49,999",
+        priceSuffix: "one-time",
+        features: [
+            "Unlimited Products",
+            "Payment Gateway",
+            "Shopping Cart",
+            "Order Management",
+            "Inventory System",
+            "24/7 Support"
+        ],
+        note: "*Custom quotes for large stores"
+    }
+];
 
-langToggle.addEventListener('click', () => {
-    currentLanguage = currentLanguage === 'en' ? 'mr' : 'en';
-    updateLanguage(currentLanguage);
-    populateContent(); // Refresh all content with new language
-});
-
-// Function to update all content based on language
-function updateLanguage(lang) {
-    const t = config.translations[lang];
+// ========== POPULATE PRICING CARDS ==========
+function populatePricingCards() {
+    const pricingGrid = document.querySelector('.pricing-grid');
+    if (!pricingGrid) return;
     
-    // Update navigation
-    navHome.textContent = t.nav.home;
-    navPricing.textContent = t.nav.pricing;
-    navWhyChoose.textContent = t.nav.whyUs;
-    navAbout.textContent = t.nav.about;
-    navContact.textContent = t.nav.contact;
-    
-    // Update hero section
-    heroTitle.innerHTML = t.hero.title;
-    heroDesc.textContent = t.hero.description;
-    heroBtnPrimary.textContent = t.hero.primaryBtn;
-    heroBtnSecondary.textContent = t.hero.secondaryBtn;
-    
-    // Update pricing section
-    pricingTitle.textContent = t.pricing.title;
-    pricingSubhead.textContent = t.pricing.subtitle;
-    
-    // Update why choose us section
-    whyTitle.textContent = t.whyUs.title;
-    
-    // Update about section
-    aboutTitle.textContent = t.about.title;
-    aboutDesc.textContent = t.about.description;
-    
-    // Update contact section
-    contactTitle.textContent = t.contact.title;
-    submitBtn.textContent = t.contact.form.submit;
-    
-    // Update form placeholders
-    document.getElementById('nameInput').placeholder = t.contact.form.name;
-    document.getElementById('emailInput').placeholder = t.contact.form.email;
-    document.getElementById('phoneInput').placeholder = t.contact.form.phone;
-    document.getElementById('messageInput').placeholder = t.contact.form.message;
-    
-    // Update footer
-    footerText.textContent = t.footer;
-    
-    // Update WhatsApp message
-    updateWhatsAppLink(t.whatsappMessage);
-}
-
-// Function to update WhatsApp link
-function updateWhatsAppLink(message) {
-    const phone = config.company.whatsapp.replace(/[^0-9]/g, '');
-    const encodedMessage = encodeURIComponent(message);
-    whatsappFloat.href = `https://wa.me/${phone}?text=${encodedMessage}`;
-}
-
-// Function to populate pricing cards with translation
-function populatePricing() {
-    const t = config.translations[currentLanguage];
-    const plans = config.pricing;
     let html = '';
     
-    Object.keys(plans).forEach(key => {
-        const plan = plans[key];
-        
-        // Get translated features based on plan type
-        let translatedFeatures = [];
-        if (key === 'basic') {
-            translatedFeatures = t.planBasicFeatures;
-        } else if (key === 'business') {
-            translatedFeatures = t.planBusinessFeatures;
-        } else if (key === 'ecommerce') {
-            translatedFeatures = t.planEcomFeatures;
-        }
-        
-        // Get translated plan name
-        let planName = plan.name;
-        if (currentLanguage === 'mr') {
-            if (key === 'basic') planName = 'बेसिक';
-            else if (key === 'business') planName = 'बिझनेस';
-            else if (key === 'ecommerce') planName = 'ई‑कॉमर्स';
-        }
-        
-        // Get translated note
-        let planNote = plan.note;
-        if (currentLanguage === 'mr') {
-            if (key === 'basic') planNote = '*लहान व्यवसायांसाठी योग्य';
-            else if (key === 'business') planNote = '*वाढत्या कंपन्यांसाठी उत्तम';
-            else if (key === 'ecommerce') planNote = '*मोठ्या स्टोअर्ससाठी कस्टम कोट';
-        }
+    pricingPlans.forEach(plan => {
+        const popularClass = plan.popular ? 'popular' : '';
+        const popularBadge = plan.popular ? '<div class="popular-badge">Most Popular</div>' : '';
         
         html += `
-            <div class="price-card">
+            <div class="price-card ${popularClass}">
+                ${popularBadge}
                 <div class="price-badge" style="border-color: ${plan.badgeColor}; color: ${plan.badgeColor};">${plan.badge}</div>
-                <h4>${planName}</h4>
+                <h4>${plan.name}</h4>
                 <div class="price-amount">${plan.price}<small> ${plan.priceSuffix}</small></div>
                 <ul class="feature-list">
-                    ${translatedFeatures.map(f => `
+                    ${plan.features.map(f => `
                         <li><i class="fas fa-check-circle"></i> <span>${f}</span></li>
                     `).join('')}
                 </ul>
-                <a href="#contact" class="btn-plan">${t.pricing.getStarted}</a>
-                <div class="price-footer-note">${planNote}</div>
+                <a href="#contact" class="btn-plan">Get Started</a>
+                <div class="price-footer-note">${plan.note}</div>
             </div>
         `;
     });
@@ -160,87 +142,70 @@ function populatePricing() {
     pricingGrid.innerHTML = html;
 }
 
-// Function to populate features with translation
+// ========== POPULATE FEATURES ==========
 function populateFeatures() {
-    const t = config.translations[currentLanguage];
+    const featuresGrid = document.querySelector('.choose-grid');
+    if (!featuresGrid) return;
+    
+    const features = [
+        {
+            icon: "fa-rocket",
+            title: "Fast Delivery",
+            description: "We respect your time. Get your website live in days, not weeks."
+        },
+        {
+            icon: "fa-tag",
+            title: "Affordable Pricing",
+            description: "High-quality solutions without breaking your bank."
+        },
+        {
+            icon: "fa-shield-alt",
+            title: "Secure Hosting",
+            description: "Free SSL and daily backups for peace of mind."
+        },
+        {
+            icon: "fa-headset",
+            title: "Local Support",
+            description: "We're based in India. Real people, fast response."
+        }
+    ];
+    
     let html = '';
     
-    // Translated features for Marathi
-    if (currentLanguage === 'mr') {
-        const mrFeatures = [
-            {
-                icon: "fa-rocket",
-                title: "जलद वितरण",
-                description: "आम्ही तुमच्या वेळेचा आदर करतो. आठवड्यांमध्ये नव्हे तर दिवसांत वेबसाइट लाइव्ह करा."
-            },
-            {
-                icon: "fa-tag",
-                title: "परवडणारी किंमत",
-                description: "तुमच्या बँकेत भंग न करता उच्च दर्जाचे उपाय."
-            },
-            {
-                icon: "fa-shield-alt",
-                title: "सुरक्षित होस्टिंग",
-                description: "मोफत SSL आणि दैनंदिन बॅकअपसह एंटरप्राइझ-ग्रेड सुरक्षा."
-            },
-            {
-                icon: "fa-headset",
-                title: "स्थानिक समर्थन",
-                description: "आम्ही भारतात आधारित आहोत. वास्तविक लोक, जलद प्रतिसाद, चॅटबॉट नाही."
-            }
-        ];
-        
-        mrFeatures.forEach(feature => {
-            html += `
-                <div class="choose-item">
-                    <i class="fas ${feature.icon}"></i>
-                    <h4>${feature.title}</h4>
-                    <p>${feature.description}</p>
-                </div>
-            `;
-        });
-    } else {
-        // English features
-        config.features.forEach(feature => {
-            html += `
-                <div class="choose-item">
-                    <i class="fas ${feature.icon}"></i>
-                    <h4>${feature.title}</h4>
-                    <p>${feature.description}</p>
-                </div>
-            `;
-        });
-    }
+    features.forEach(feature => {
+        html += `
+            <div class="choose-item">
+                <i class="fas ${feature.icon}"></i>
+                <h4>${feature.title}</h4>
+                <p>${feature.description}</p>
+            </div>
+        `;
+    });
     
     featuresGrid.innerHTML = html;
 }
 
-// Function to populate founder card with translation
+// ========== POPULATE FOUNDER CARD ==========
 function populateFounder() {
-    const t = config.translations[currentLanguage];
-    const founder = config.founder;
+    const founderCard = document.querySelector('.founder-card');
+    if (!founderCard) return;
     
-    // Use translated content if available
-    let founderName = founder.name;
-    let founderTagline = founder.tagline;
-    let founderAge = founder.age;
-    let founderBio = founder.bio;
-    
-    if (currentLanguage === 'mr' && t.founder) {
-        founderName = t.founder.name;
-        founderTagline = t.founder.tagline;
-        founderAge = t.founder.age;
-        founderBio = t.founder.bio;
-    }
+    const founder = {
+        name: "Sushant Kakade",
+        tagline: "Founder & Lead Developer",
+        bio: "A passionate developer with 5+ years of experience in web development. Started SushTech to help small businesses establish their online presence with affordable solutions.",
+        skills: ["HTML/CSS", "JavaScript", "React", "UI/UX"],
+        imageUrl: "https://via.placeholder.com/120"
+    };
     
     founderCard.innerHTML = `
         <div class="founder-img">
-            <img src="${founder.imageUrl}" alt="${founder.fullName}">
+            <img src="${founder.imageUrl}" alt="${founder.name}">
         </div>
         <div class="founder-info">
-            <h4>${founderName}</h4>
-            <div class="founder-tagline">${founderTagline}</div>
-            <p class="founder-bio">${founderBio}</p>
+            <h4>${founder.name}</h4>
+            <div class="founder-tagline">${founder.tagline}</div>
+            <p class="founder-bio">${founder.bio}</p>
             <div class="founder-skills">
                 ${founder.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
             </div>
@@ -248,55 +213,117 @@ function populateFounder() {
     `;
 }
 
-// Function to populate contact info with translation
-function populateContact() {
-    const company = config.company;
-    const t = config.translations[currentLanguage];
+// ========== POPULATE CONTACT INFO ==========
+function populateContactInfo() {
+    const contactInfo = document.querySelector('.contact-info');
+    if (!contactInfo) return;
+    
+    const company = {
+        phone: "+91 90214 96257",
+        whatsapp: "+91 90214 96257",
+        hours: "Mon-Fri: 9 AM - 6 PM",
+        email: "contact@sushtech.in"
+    };
+    
+    const whatsappMessage = encodeURIComponent("Hello SushTech, I'm interested in your services");
     
     contactInfo.innerHTML = `
         <p><i class="fas fa-phone-alt"></i> <span>${company.phone}</span></p>
         <p><i class="fab fa-whatsapp"></i> <span>${company.whatsapp} (WhatsApp)</span></p>
         <p><i class="far fa-clock"></i> <span>${company.hours}</span></p>
-        <a href="https://wa.me/${company.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(t.whatsappMessage)}" 
+        <a href="https://wa.me/919021496257?text=${whatsappMessage}" 
            target="_blank" class="chat-btn">
-            <i class="fab fa-whatsapp"></i> ${t.contact.chat}
+            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
         </a>
     `;
     
-    businessEmailLink.innerHTML = `<i class="fas fa-envelope"></i> ${company.email}`;
-    businessEmailLink.href = `mailto:${company.email}`;
+    const businessEmail = document.querySelector('.business-email');
+    if (businessEmail) {
+        businessEmail.href = `mailto:${company.email}`;
+    }
 }
 
-// Function to populate all content
-function populateContent() {
-    populatePricing();
-    populateFeatures();
-    populateFounder(); // Founder card will now use translated content
-    populateContact();
+// ========== UPDATE WHATSAPP FLOAT LINK ==========
+function updateWhatsAppFloat() {
+    const whatsappFloat = document.getElementById('whatsappFloat');
+    if (!whatsappFloat) return;
+    
+    const message = encodeURIComponent("Hello SushTech, I'm interested in your services");
+    whatsappFloat.href = `https://wa.me/919021496257?text=${message}`;
 }
 
-// Form submission handler
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const t = config.translations[currentLanguage];
-    alert(t.contact.form.success);
-    contactForm.reset();
+// ========== FORM SUBMISSION ==========
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const formStatus = document.getElementById('formStatus');
+        if (formStatus) {
+            formStatus.innerHTML = '<span style="color: #22D3EE; font-weight: 500;">✓ Message sent successfully! We\'ll contact you soon.</span>';
+            formStatus.style.display = 'block';
+        }
+        
+        contactForm.reset();
+        
+        // Hide message after 5 seconds
+        setTimeout(() => {
+            if (formStatus) formStatus.style.display = 'none';
+        }, 5000);
+    });
+}
+
+// ========== SMOOTH SCROLL FOR NAVIGATION ==========
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
 });
 
-// Initialize the page
+// ========== ACTIVE NAVIGATION HIGHLIGHT ==========
+window.addEventListener('scroll', () => {
+    let current = '';
+    const sections = document.querySelectorAll('section');
+    const panelLinks = document.querySelectorAll('.panel-link');
+    
+    if (sections.length === 0 || panelLinks.length === 0) return;
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 150)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    panelLinks.forEach(link => {
+        link.classList.remove('active');
+        link.style.borderLeftColor = 'transparent';
+        link.style.color = '#F8FAFC';
+        
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+            link.style.borderLeftColor = '#22D3EE';
+            link.style.color = '#22D3EE';
+        }
+    });
+});
+
+// ========== INITIALIZE PAGE ==========
 function init() {
-    // Set initial language
-    updateLanguage('en');
-    
     // Populate all dynamic content
-    populateContent();
-    
-    // Set document language
-    document.documentElement.lang = 'en';
-    
-    // Ensure dark mode is default
-    body.classList.remove('light-mode');
-    modeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    populatePricingCards();
+    populateFeatures();
+    populateFounder();
+    populateContactInfo();
+    updateWhatsAppFloat();
 }
 
 // Start everything when DOM is loaded
