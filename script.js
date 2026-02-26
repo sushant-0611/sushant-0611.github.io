@@ -7,42 +7,46 @@ document.addEventListener('DOMContentLoaded', function() {
     const closePanel = document.getElementById('closePanel');
     const overlay = document.getElementById('overlay');
     const panelLinks = document.querySelectorAll('.panel-link');
-    
+
     // Check if elements exist
     if (!menuToggle || !sidePanel || !closePanel || !overlay) return;
-    
+
     // Function to open panel
     function openPanel() {
         sidePanel.classList.add('active');
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
         menuToggle.style.opacity = '0';
+        menuToggle.setAttribute('aria-expanded', 'true');
+        sidePanel.setAttribute('aria-hidden', 'false');
     }
-    
+
     // Function to close panel
     function closePanelMenu() {
         sidePanel.classList.remove('active');
         overlay.classList.remove('active');
         document.body.style.overflow = '';
         menuToggle.style.opacity = '1';
+        menuToggle.setAttribute('aria-expanded', 'false');
+        sidePanel.setAttribute('aria-hidden', 'true');
     }
-    
+
     menuToggle.addEventListener('click', openPanel);
     closePanel.addEventListener('click', closePanelMenu);
     overlay.addEventListener('click', closePanelMenu);
-    
+
     panelLinks.forEach(link => {
         link.addEventListener('click', function() {
             closePanelMenu();
         });
     });
-    
+
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && sidePanel.classList.contains('active')) {
             closePanelMenu();
         }
     });
-    
+
     window.addEventListener('resize', function() {
         if (window.innerWidth > 767 && sidePanel.classList.contains('active')) {
             closePanelMenu();
@@ -57,17 +61,17 @@ document.addEventListener('DOMContentLoaded', function() {
 function populatePricingCards() {
     const pricingGrid = document.querySelector('.pricing-grid');
     if (!pricingGrid || typeof SUSHITECH_CONFIG === 'undefined') return;
-    
+
     const config = SUSHITECH_CONFIG;
     const plans = config.pricing;
     let html = '';
-    
+
     // Loop through pricing plans from config
     Object.keys(plans).forEach((key) => {
         const plan = plans[key];
         const popularClass = plan.popular ? 'popular' : '';
         const popularBadge = plan.popular ? '<div class="popular-badge">Most Popular</div>' : '';
-        
+
         html += `
             <div class="price-card ${popularClass}">
                 ${popularBadge}
@@ -84,7 +88,7 @@ function populatePricingCards() {
             </div>
         `;
     });
-    
+
     pricingGrid.innerHTML = html;
 }
 
@@ -92,10 +96,10 @@ function populatePricingCards() {
 function populateFeatures() {
     const featuresGrid = document.querySelector('.choose-grid');
     if (!featuresGrid || typeof SUSHITECH_CONFIG === 'undefined') return;
-    
+
     const config = SUSHITECH_CONFIG;
     let html = '';
-    
+
     config.features.forEach(feature => {
         html += `
             <div class="choose-item">
@@ -105,7 +109,7 @@ function populateFeatures() {
             </div>
         `;
     });
-    
+
     featuresGrid.innerHTML = html;
 }
 
@@ -113,13 +117,13 @@ function populateFeatures() {
 function populateFounder() {
     const founderCard = document.querySelector('.founder-card');
     if (!founderCard || typeof SUSHITECH_CONFIG === 'undefined') return;
-    
+
     const config = SUSHITECH_CONFIG;
     const founder = config.founder;
-    
+
     // Check if founder card exists in HTML
     if (!founderCard) return;
-    
+
     founderCard.innerHTML = `
         <div class="founder-img">
             <img src="${founder.imageUrl}" alt="${founder.fullName || founder.name}">
@@ -141,7 +145,7 @@ function populateFounder() {
 window.openDemoModal = function(category) {
     // Close any open modals first
     closeAllModals();
-    
+
     // Open the specific category modal
     const modalId = category + 'DemoModal';
     const modal = document.getElementById(modalId);
@@ -173,10 +177,10 @@ window.openDemoLink = function(demoKey) {
         alert('Demo links not available. Please try again later.');
         return;
     }
-    
+
     // Determine which category the demo belongs to
     let demoLink = null;
-    
+
     // Check in wedding demos
     if (SUSHITECH_CONFIG.weddingDemos && SUSHITECH_CONFIG.weddingDemos[demoKey]) {
         demoLink = SUSHITECH_CONFIG.weddingDemos[demoKey];
@@ -189,9 +193,9 @@ window.openDemoLink = function(demoKey) {
     else if (SUSHITECH_CONFIG.ecommerceDemos && SUSHITECH_CONFIG.ecommerceDemos[demoKey]) {
         demoLink = SUSHITECH_CONFIG.ecommerceDemos[demoKey];
     }
-    
+
     if (demoLink) {
-        window.open(demoLink, '_blank');
+        window.open(demoLink, '_blank', 'noopener,noreferrer');
         closeAllModals(); // Close modal after opening link
     } else {
         console.error(`❌ No link found for demo: ${demoKey}`);
@@ -217,13 +221,13 @@ document.addEventListener('keydown', function(e) {
 function populateSocialLinks() {
     const socialLinksContainer = document.querySelector('.social-links');
     if (!socialLinksContainer || typeof SUSHITECH_CONFIG === 'undefined') return;
-    
+
     const config = SUSHITECH_CONFIG;
     const social = config.social;
-    
+
     // Clear existing links
     socialLinksContainer.innerHTML = '';
-    
+
     // Create social links from config
     if (social.linkedin) {
         const link = document.createElement('a');
@@ -235,7 +239,7 @@ function populateSocialLinks() {
         link.setAttribute('aria-label', 'LinkedIn');
         socialLinksContainer.appendChild(link);
     }
-    
+
     if (social.instagram) {
         const link = document.createElement('a');
         link.href = social.instagram;
@@ -246,7 +250,7 @@ function populateSocialLinks() {
         link.setAttribute('aria-label', 'Instagram');
         socialLinksContainer.appendChild(link);
     }
-    
+
     if (social.github) {
         const link = document.createElement('a');
         link.href = social.github;
@@ -257,7 +261,7 @@ function populateSocialLinks() {
         link.setAttribute('aria-label', 'GitHub');
         socialLinksContainer.appendChild(link);
     }
-    
+
     // Optional: Twitter if exists
     if (social.twitter) {
         const link = document.createElement('a');
@@ -269,7 +273,7 @@ function populateSocialLinks() {
         link.setAttribute('aria-label', 'Twitter');
         socialLinksContainer.appendChild(link);
     }
-    
+
     console.log('✅ Social links populated from config:', social);
 }
 
@@ -277,24 +281,24 @@ function populateSocialLinks() {
 function populateContactInfo() {
     const contactInfo = document.querySelector('.contact-info');
     if (!contactInfo || typeof SUSHITECH_CONFIG === 'undefined') return;
-    
+
     const config = SUSHITECH_CONFIG;
     const company = config.company;
-    
+
     // Format WhatsApp number
     const cleanWhatsapp = company.whatsapp.replace(/[^0-9]/g, '');
     const whatsappMessage = encodeURIComponent(`Hello ${company.name}, I'm interested in your services`);
-    
+
     contactInfo.innerHTML = `
         <p><i class="fas fa-phone-alt"></i> <span>${company.phone}</span></p>
         <p><i class="fab fa-whatsapp"></i> <span>${company.whatsapp} (WhatsApp)</span></p>
         <p><i class="far fa-clock"></i> <span>${company.hours}</span></p>
-        <a href="https://wa.me/${cleanWhatsapp}?text=${whatsappMessage}" 
-           target="_blank" class="chat-btn">
+        <a href="https://wa.me/${cleanWhatsapp}?text=${whatsappMessage}"
+           target="_blank" rel="noopener noreferrer" class="chat-btn">
             <i class="fab fa-whatsapp"></i> Chat on WhatsApp
         </a>
     `;
-    
+
     const businessEmail = document.querySelector('.business-email');
     if (businessEmail) {
         businessEmail.innerHTML = `<i class="fas fa-envelope"></i> ${company.email}`;
@@ -306,20 +310,20 @@ function populateContactInfo() {
 function updateWhatsAppFloat() {
     const whatsappFloat = document.getElementById('whatsappFloat');
     if (!whatsappFloat || typeof SUSHITECH_CONFIG === 'undefined') return;
-    
+
     const config = SUSHITECH_CONFIG;
     const company = config.company;
     const cleanWhatsapp = company.whatsapp.replace(/[^0-9]/g, '');
     const message = encodeURIComponent(`Hello ${company.name}, I'm interested in your services`);
-    
+
     whatsappFloat.href = `https://wa.me/${cleanWhatsapp}?text=${message}`;
 }
 
 // ========== UPDATE FOOTER WITH COMPANY INFO ==========
 function updateFooter() {
-    const footer = document.querySelector('footer p');
+    const footer = document.querySelector('.copyright p');
     if (!footer || typeof SUSHITECH_CONFIG === 'undefined') return;
-    
+
     const config = SUSHITECH_CONFIG;
     const year = new Date().getFullYear();
     footer.innerHTML = `© ${year} ${config.company.name}. All rights reserved.`;
@@ -330,15 +334,15 @@ const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         const formStatus = document.getElementById('formStatus');
         if (formStatus) {
             formStatus.innerHTML = '<span style="color: #22D3EE; font-weight: 500;">✓ Message sent successfully! We\'ll contact you soon.</span>';
             formStatus.style.display = 'block';
         }
-        
+
         contactForm.reset();
-        
+
         setTimeout(() => {
             if (formStatus) formStatus.style.display = 'none';
         }, 5000);
@@ -348,14 +352,17 @@ if (contactForm) {
 // ========== SMOOTH SCROLL FOR NAVIGATION ==========
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#') return;
+
+        const target = document.querySelector(href);
+        if (!target) return;
+
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+        target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
     });
 });
 
@@ -364,9 +371,9 @@ window.addEventListener('scroll', () => {
     let current = '';
     const sections = document.querySelectorAll('section');
     const panelLinks = document.querySelectorAll('.panel-link');
-    
+
     if (sections.length === 0 || panelLinks.length === 0) return;
-    
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
@@ -379,7 +386,7 @@ window.addEventListener('scroll', () => {
         link.classList.remove('active');
         link.style.borderLeftColor = 'transparent';
         link.style.color = '#F8FAFC';
-        
+
         if (link.getAttribute('href') === `#${current}`) {
             link.classList.add('active');
             link.style.borderLeftColor = '#22D3EE';
@@ -395,7 +402,7 @@ function init() {
         console.error('❌ config.js not loaded! Make sure config.js is included before script.js');
         return;
     }
-    
+
     // Populate all dynamic content from config
     populatePricingCards();
     populateFeatures();
@@ -404,7 +411,7 @@ function init() {
     populateSocialLinks(); // Populate social links
     updateWhatsAppFloat();
     updateFooter();
-    
+
     console.log('✅ SushTech website initialized with config data');
     console.log('✅ Social links loaded from config:', SUSHITECH_CONFIG.social);
 }

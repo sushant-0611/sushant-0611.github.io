@@ -45,6 +45,29 @@ section {
     padding: 60px 5%;
 }
 
+
+
+.skip-link {
+    position: absolute;
+    top: -48px;
+    left: 12px;
+    background: var(--accent);
+    color: #001018;
+    padding: 8px 12px;
+    border-radius: 6px;
+    z-index: 2000;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    top: 10px;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
 /* ========== HEADER STYLES ========== */
 header {
     display: flex;
@@ -70,6 +93,8 @@ header {
 
 /* ========== HAMBURGER MENU ICON ========== */
 .menu-icon {
+    border: 0;
+    background: transparent;
     font-size: 32px;
     cursor: pointer;
     color: var(--text-primary);
@@ -117,6 +142,8 @@ header {
 }
 
 .close-icon {
+    border: 0;
+    background: transparent;
     font-size: 24px;
     cursor: pointer;
     color: var(--text-primary);
@@ -1086,23 +1113,23 @@ header {
     .contact {
         padding: 40px 15px;
     }
-    
+
     .business-email {
         font-size: 1rem;
         padding: 12px 25px;
         margin-bottom: 30px;
     }
-    
+
     .contact-info {
         padding: 30px;
         max-width: 450px;
     }
-    
+
     .contact-info p {
         font-size: 1rem;
         margin: 15px 0;
     }
-    
+
     .chat-btn {
         padding: 12px 24px;
         font-size: 1rem;
@@ -1116,23 +1143,23 @@ header {
         width: 100%;
         max-width: 350px;
     }
-    
+
     .contact-info {
         padding: 25px;
         max-width: 100%;
     }
-    
+
     .contact-info p {
         flex-wrap: wrap;
         gap: 10px;
         font-size: 0.95rem;
     }
-    
+
     .contact-info i {
         width: 25px;
         font-size: 1.2rem;
     }
-    
+
     .chat-btn {
         padding: 12px 20px;
         font-size: 0.95rem;
@@ -1145,11 +1172,11 @@ header {
         font-size: 0.85rem;
         padding: 8px 15px;
     }
-    
+
     .contact-info {
         padding: 20px;
     }
-    
+
     .contact-info p {
         font-size: 0.9rem;
     }
@@ -1342,140 +1369,140 @@ header {
     body {
         padding-top: 70px;
     }
-    
+
     html {
         scroll-padding-top: 70px;
     }
-    
+
     section {
         scroll-margin-top: 70px;
         padding: 40px 4%;
     }
-    
+
     header {
         height: 70px;
         padding: 10px 4%;
     }
-    
+
     .logo img {
         height: 35px;
     }
-    
+
     .hero {
         padding: 20px 15px 60px;
         min-height: calc(100vh - 70px);
     }
-    
+
     .hero h2 {
         font-size: 32px;
     }
-    
+
     .hero p {
         font-size: 1rem;
         margin: 15px auto 30px;
     }
-    
+
     .hero .wave {
         height: 60px;
     }
-    
+
     .hero .wave:nth-child(1) {
         height: 80px;
     }
-    
+
     .hero .wave:nth-child(2) {
         height: 60px;
     }
-    
+
     .hero .wave:nth-child(3) {
         height: 40px;
     }
-    
+
     .hero .particle:nth-child(n+20) {
         display: none;
     }
-    
+
     .hero-buttons {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .btn-primary, .btn-secondary {
         width: 100%;
         max-width: 280px;
     }
-    
+
     .pricing-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .price-card.popular {
         transform: none;
     }
-    
+
     .price-card.popular:hover {
         transform: translateY(-5px);
     }
-    
+
     .choose-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .demo-grid {
         gap: 15px;
         padding: 10px 5px 15px;
         justify-content: flex-start;
     }
-    
+
     .demo-card {
         min-width: 280px;
         max-width: 320px;
     }
-    
+
     .demo-buttons {
         flex-direction: column;
     }
-    
+
     .demo-btn {
         width: 100%;
     }
-    
+
     .side-panel {
         width: 280px;
     }
-    
+
     .panel-link {
         font-size: 1.1rem;
         padding: 10px 15px;
     }
-    
+
     .demo-modal-content {
         padding: 30px 20px;
     }
-    
+
     .demo-modal-header h3 {
         font-size: 24px;
     }
-    
+
     .demo-icons-grid {
         gap: 15px;
     }
-    
+
     .demo-icon-card {
         padding: 20px 10px;
     }
-    
+
     .demo-icon-wrapper {
         width: 60px;
         height: 60px;
         font-size: 24px;
     }
-    
+
     .footer-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 30px;
     }
-    
+
     .footer-bottom {
         flex-direction: column;
         gap: 15px;
@@ -1486,42 +1513,42 @@ header {
     .hero h2 {
         font-size: 28px;
     }
-    
+
     .price-amount {
         font-size: 1.8rem;
     }
-    
+
     .btn-primary, .btn-secondary {
         max-width: 240px;
         padding: 10px 20px;
     }
-    
+
     .demo-card {
         min-width: 260px;
         max-width: 300px;
     }
-    
+
     .demo-info {
         padding: 20px;
     }
-    
+
     .demo-features {
         gap: 8px;
     }
-    
+
     .demo-feature {
         padding: 4px 10px;
         font-size: 0.75rem;
     }
-    
+
     .side-panel {
         width: 250px;
     }
-    
+
     .demo-icons-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .demo-icon-card {
         display: flex;
         align-items: center;
@@ -1529,30 +1556,30 @@ header {
         gap: 20px;
         padding: 15px 20px;
     }
-    
+
     .demo-icon-wrapper {
         margin: 0;
     }
-    
+
     .footer-grid {
         grid-template-columns: 1fr;
         gap: 25px;
     }
-    
+
     .footer-col {
         text-align: center;
     }
-    
+
     .footer-col h5::after {
         left: 50%;
         transform: translateX(-50%);
         width: 50px;
     }
-    
+
     .social-links {
         justify-content: center;
     }
-    
+
     .copyright {
         font-size: 0.85rem;
     }
@@ -1562,15 +1589,15 @@ header {
     .professional-footer {
         padding: 30px 0 15px;
     }
-    
+
     .footer-col h5 {
         font-size: 1rem;
     }
-    
+
     .footer-col a {
         font-size: 0.9rem;
     }
-    
+
     .social-links a {
         width: 34px;
         height: 34px;
@@ -1590,11 +1617,11 @@ header {
     .hero, .pricing-grid, .choose-grid, .demo-grid, .contact-wrapper {
         max-width: 1300px;
     }
-    
+
     .hero h2 {
         font-size: 64px;
     }
-    
+
     .hero p {
         font-size: 1.35rem;
     }
@@ -1605,24 +1632,24 @@ header {
     body {
         padding-top: 70px;
     }
-    
+
     .hero {
         min-height: calc(100vh - 70px);
         padding: 20px 15px 40px;
     }
-    
+
     .hero h2 {
         font-size: 32px;
     }
-    
+
     .hero p {
         margin: 10px auto 20px;
     }
-    
+
     .side-panel {
         overflow-y: auto;
     }
-    
+
     .professional-footer {
         padding: 30px 0 15px;
     }
@@ -1634,12 +1661,22 @@ header {
         padding: 12px 20px;
         min-height: 44px;
     }
-    
+
     .menu-icon, .close-icon, .social-links a {
         min-height: 44px;
         min-width: 44px;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
