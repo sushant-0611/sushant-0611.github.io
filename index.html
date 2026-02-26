@@ -38,21 +38,22 @@
 </head>
 
 <body>
-    
+<a class="skip-link" href="#home">Skip to content</a>
+
 <header>
     <div class="logo">
         <img src="SushTech_logo_transparent1.png" alt="Logo">
     </div>
 
-    <div class="menu-icon" id="menuToggle">☰</div>
+    <button class="menu-icon" id="menuToggle" aria-label="Open navigation menu" aria-controls="sidePanel" aria-expanded="false">☰</button>
 
     <!-- Right Side Panel Menu -->
-    <div class="side-panel" id="sidePanel">
+    <div class="side-panel" id="sidePanel" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Navigation menu">
         <div class="panel-header">
             <div class="panel-logo">
                 <img src="SushTech_logo_transparent1.png" alt="Logo">
             </div>
-            <div class="close-icon" id="closePanel">✕</div>
+            <button class="close-icon" id="closePanel" aria-label="Close navigation menu">✕</button>
         </div>
         <nav class="panel-nav">
             <a href="#home" class="panel-link">Home</a>
@@ -78,7 +79,7 @@
         <div class="wave"></div>
         <div class="wave"></div>
     </div>
-    
+
     <div class="particles">
         <!-- Row 1 - Top -->
         <div class="particle"></div>
@@ -91,7 +92,7 @@
         <div class="particle"></div>
         <div class="particle"></div>
         <div class="particle"></div>
-        
+
         <!-- Row 2 - Middle -->
         <div class="particle"></div>
         <div class="particle"></div>
@@ -103,7 +104,7 @@
         <div class="particle"></div>
         <div class="particle"></div>
         <div class="particle"></div>
-        
+
         <!-- Row 3 - Bottom -->
         <div class="particle"></div>
         <div class="particle"></div>
@@ -116,7 +117,7 @@
         <div class="particle"></div>
         <div class="particle"></div>
     </div>
-    
+
     <div class="container">
         <h2>
             We Help <span class="highlight">Businesses Grow</span> Online
@@ -134,7 +135,7 @@
     <div class="container">
         <h3>Simple, Transparent Pricing</h3>
         <div class="pricing-subhead">Choose the plan that fits your needs — no negotiation, no hidden fees.</div>
-        
+
         <!-- Pricing cards will be populated from config.js -->
         <div class="pricing-grid" id="pricing-grid">
             <!-- Dynamic content from JavaScript -->
@@ -183,7 +184,7 @@
         <div class="demo-showcase">
             <h3 class="demo-title">Our <span class="highlight">Demo</span> Websites</h3>
             <p class="demo-subtitle">Explore our work across different categories</p>
-            
+
             <div class="demo-grid">
                 <!-- Wedding Demo Card -->
                 <div class="demo-card">
@@ -282,7 +283,7 @@
                     <span>Traditional</span>
                     <small class="demo-type">Aarav & Sneha</small>
                 </div>
-                
+
                 <!-- Wedding Demo 2 -->
                 <div class="demo-icon-card" onclick="openDemoLink('wedding2')">
                     <div class="demo-icon-wrapper">
@@ -291,7 +292,7 @@
                     <span>Modern</span>
                     <small class="demo-type">Rohan & Priya</small>
                 </div>
-                
+
                 <!-- Wedding Demo 3 -->
                 <div class="demo-icon-card" onclick="openDemoLink('wedding3')">
                     <div class="demo-icon-wrapper">
@@ -300,7 +301,7 @@
                     <span>Garden</span>
                     <small class="demo-type">Vikram & Anjali</small>
                 </div>
-                
+
                 <!-- Wedding Demo 4 -->
                 <div class="demo-icon-card" onclick="openDemoLink('wedding4')">
                     <div class="demo-icon-wrapper">
@@ -332,7 +333,7 @@
                     <span>Startup</span>
                     <small class="demo-type">Local Business</small>
                 </div>
-                
+
                 <!-- Business Demo 2 -->
                 <div class="demo-icon-card" onclick="openDemoLink('business2')">
                     <div class="demo-icon-wrapper">
@@ -341,7 +342,7 @@
                     <span>Corporate</span>
                     <small class="demo-type">Company Website</small>
                 </div>
-                
+
                 <!-- Business Demo 3 -->
                 <div class="demo-icon-card" onclick="openDemoLink('business3')">
                     <div class="demo-icon-wrapper">
@@ -350,7 +351,7 @@
                     <span>Portfolio</span>
                     <small class="demo-type">Agency Site</small>
                 </div>
-                
+
                 <!-- Business Demo 4 -->
                 <div class="demo-icon-card" onclick="openDemoLink('business4')">
                     <div class="demo-icon-wrapper">
@@ -382,7 +383,7 @@
                     <span>Fashion</span>
                     <small class="demo-type">Clothing Store</small>
                 </div>
-                
+
                 <!-- E-Commerce Demo 2 -->
                 <div class="demo-icon-card" onclick="openDemoLink('ecommerce2')">
                     <div class="demo-icon-wrapper">
@@ -391,7 +392,7 @@
                     <span>Electronics</span>
                     <small class="demo-type">Gadget Shop</small>
                 </div>
-                
+
                 <!-- E-Commerce Demo 3 -->
                 <div class="demo-icon-card" onclick="openDemoLink('ecommerce3')">
                     <div class="demo-icon-wrapper">
@@ -400,7 +401,7 @@
                     <span>Furniture</span>
                     <small class="demo-type">Home Decor</small>
                 </div>
-                
+
                 <!-- E-Commerce Demo 4 -->
                 <div class="demo-icon-card" onclick="openDemoLink('ecommerce4')">
                     <div class="demo-icon-wrapper">
@@ -418,7 +419,7 @@
 <section id="contact" class="contact">
     <div class="container">
         <h3>Contact Us</h3>
-        
+
         <!-- Business Email -->
         <a href="mailto:contact@sushtech.in" class="business-email">
             <i class="fas fa-envelope"></i> contact@sushtech.in
@@ -430,8 +431,8 @@
                 <p><i class="fas fa-phone-alt"></i> <span>+91 90214 96257</span></p>
                 <p><i class="fab fa-whatsapp"></i> <span>+91 90214 96257 (WhatsApp)</span></p>
                 <p><i class="far fa-clock"></i> <span>Mon-Fri: 9 AM - 6 PM</span></p>
-                <a href="https://wa.me/919021496257?text=Hello%20SushTech%2C%20I'm%20interested%20in%20your%20services" 
-                   target="_blank" class="chat-btn">
+                <a href="https://wa.me/919021496257?text=Hello%20SushTech%2C%20I'm%20interested%20in%20your%20services"
+                   target="_blank" rel="noopener noreferrer" class="chat-btn">
                     <i class="fab fa-whatsapp"></i> Chat on WhatsApp
                 </a>
             </div>
@@ -453,7 +454,7 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
-            
+
             <!-- Column 2 - Services -->
             <div class="footer-col">
                 <h5>Services</h5>
@@ -464,7 +465,7 @@
                     <li><a href="#pricing">Wedding Websites</a></li>
                 </ul>
             </div>
-            
+
             <!-- Column 3 - Support -->
             <div class="footer-col">
                 <h5>Support</h5>
@@ -475,15 +476,15 @@
                     <li><a href="#">Terms of Service</a></li>
                 </ul>
             </div>
-            
+
             <!-- Column 4 - Connect -->
             <div class="footer-col">
                 <h5>Connect</h5>
                 <div class="social-links">
-                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
                 </div>
                 <div class="mt-3">
                     <span class="badge">📍 Pune, India</span>
@@ -501,15 +502,40 @@
 </footer>
 
 <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/919021496257?text=Hello%20SushTech%2C%20I'm%20interested%20in%20your%20services" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/919021496257?text=Hello%20SushTech%2C%20I'm%20interested%20in%20your%20services" class="whatsapp-float" target="_blank" rel="noopener noreferrer" id="whatsappFloat" aria-label="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>
 </a>
 
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "SushTech",
+  "url": "https://sushant-0611.github.io/sushtech-website/",
+  "image": "https://sushant-0611.github.io/sushtech-website/SushTech_logo_transparent1.png",
+  "email": "contact@sushtech.in",
+  "telephone": "+91 9021496257",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Pune",
+    "addressRegion": "Maharashtra",
+    "addressCountry": "IN"
+  },
+  "areaServed": "India",
+  "sameAs": [
+    "https://github.com/sushant-0611",
+    "https://www.linkedin.com/in/sushant-kakade",
+    "https://instagram.com/sushtech"
+  ]
+}
+</script>
+
 <!-- Bootstrap JS Bundle (includes Popper) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Configuration and Scripts -->
-<script src="config.js"></script>
-<script src="script.js"></script>
+<script defer src="config.js"></script>
+<script defer src="script.js"></script>
 </body>
 </html>
