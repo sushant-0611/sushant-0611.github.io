@@ -109,10 +109,10 @@ const SUSHITECH_CONFIG = {
     
     // Business Demo Links
     businessDemos: {
-        business1: "https://your-business-demo1.com", // Startup
-        business2: "https://your-business-demo2.com", // Corporate
-        business3: "https://your-business-demo3.com", // Portfolio
-        business4: "https://your-business-demo4.com"  // Restaurant
+        business1: "https://sushant-0611.github.io/sushtech-website/Business%20Templates/Template_1.html", // Startup
+        business2: "https://sushant-0611.github.io/sushtech-website/Business%20Templates/Template_2.html", // Corporate
+        business3: "https://sushant-0611.github.io/sushtech-website/Business%20Templates/Template_3.html", // Portfolio
+        business4: "https://sushant-0611.github.io/sushtech-website/Business%20Templates/Template_4.html"  // Restaurant
     },
     
     // E-Commerce Demo Links
@@ -146,3 +146,4 @@ const SUSHITECH_CONFIG = {
 }
 
 };
+
