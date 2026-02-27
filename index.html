@@ -121,7 +121,7 @@
         <h2>
             We Help <span class="highlight">Businesses Grow</span> Online
         </h2>
-        <p>Strategic websites & digital solutions that turn visitors into customers. Fast, secure, and built for results.</p>
+        <p>Professional web development company delivering fast, secure, and high-performance digital solutions.</p>
         <div class="hero-buttons">
             <a href="#contact" class="btn-primary">Get Free Consultation</a>
             <a href="#pricing" class="btn-secondary">View Pricing</a>
@@ -179,86 +179,101 @@
             <p>SushTech is a young and innovative digital agency founded by Sushant Kakade. We help businesses succeed online with high-quality, affordable and scalable digital solutions. Our team blends technology with creativity to deliver exceptional results.</p>
         </div>
 
-        <!-- FIXED: Added demo-showcase wrapper and demo-grid container -->
+        <!-- FIXED: Demo showcase with improved mobile responsiveness -->
         <div class="demo-showcase">
             <h3 class="demo-title">Our <span class="highlight">Demo</span> Websites</h3>
             <p class="demo-subtitle">Explore our work across different categories</p>
             
-            <div class="demo-grid">
-                <!-- Wedding Demo Card -->
-                <div class="demo-card">
-                    <div class="demo-image">
-                        <img src="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Wedding Website Demo">
-                        <div class="demo-overlay">
-                            <span class="demo-category">Wedding</span>
+            <!-- Scroll indicator for mobile -->
+            <div class="scroll-indicator-horizontal" id="scrollIndicator">
+                <span class="scroll-arrow"><i class="fas fa-arrow-right"></i></span>
+                <span class="scroll-text">Swipe to see more</span>
+            </div>
+            
+            <div class="demo-grid-wrapper">
+                <div class="demo-grid" id="demoGrid">
+                    <!-- Wedding Demo Card -->
+                    <div class="demo-card card-scroll-highlight">
+                        <div class="demo-image">
+                            <img src="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Wedding Website Demo" loading="lazy">
+                            <div class="demo-overlay">
+                                <span class="demo-category">Wedding</span>
+                            </div>
+                        </div>
+                        <div class="demo-info">
+                            <div class="demo-icon">💒</div>
+                            <h4>Wedding Invitation</h4>
+                            <p class="demo-desc">Beautiful, responsive wedding websites with RSVP, gallery & countdown</p>
+                            <div class="demo-features">
+                                <span class="demo-feature"><i class="fas fa-envelope"></i> Invitation</span>
+                                <span class="demo-feature"><i class="fas fa-heart"></i> RSVP</span>
+                                <span class="demo-feature"><i class="fas fa-images"></i> Gallery</span>
+                                <span class="demo-feature"><i class="fas fa-clock"></i> Countdown</span>
+                            </div>
+                            <div class="demo-buttons">
+                                <button class="demo-btn primary" onclick="openDemoModal('wedding')">View Demos</button>
+                                <a href="#contact" class="demo-btn secondary">Get Quote</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="demo-info">
-                        <div class="demo-icon">💒</div>
-                        <h4>Wedding Invitation</h4>
-                        <p class="demo-desc">Beautiful, responsive wedding websites with RSVP, gallery & countdown</p>
-                        <div class="demo-features">
-                            <span class="demo-feature"><i class="fas fa-envelope"></i> Invitation</span>
-                            <span class="demo-feature"><i class="fas fa-heart"></i> RSVP</span>
-                            <span class="demo-feature"><i class="fas fa-images"></i> Gallery</span>
-                            <span class="demo-feature"><i class="fas fa-clock"></i> Countdown</span>
-                        </div>
-                        <div class="demo-buttons">
-                            <button class="demo-btn primary" onclick="openDemoModal('wedding')">View Demos</button>
-                            <a href="#contact" class="demo-btn secondary">Get Quote</a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Small Business Demo Card -->
-                <div class="demo-card">
-                    <div class="demo-image">
-                        <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Small Business Demo">
-                        <div class="demo-overlay">
-                            <span class="demo-category">Business</span>
+                    <!-- Small Business Demo Card -->
+                    <div class="demo-card card-scroll-highlight">
+                        <div class="demo-image">
+                            <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Small Business Demo" loading="lazy">
+                            <div class="demo-overlay">
+                                <span class="demo-category">Business</span>
+                            </div>
+                        </div>
+                        <div class="demo-info">
+                            <div class="demo-icon">🏢</div>
+                            <h4>Small Business</h4>
+                            <p class="demo-desc">Professional websites for local businesses, startups & service providers</p>
+                            <div class="demo-features">
+                                <span class="demo-feature"><i class="fas fa-envelope"></i> Contact</span>
+                                <span class="demo-feature"><i class="fas fa-map-marker-alt"></i> Maps</span>
+                                <span class="demo-feature"><i class="fas fa-bullhorn"></i> Advertisement</span>
+                                <span class="demo-feature"><i class="fab fa-whatsapp"></i> WhatsApp</span>
+                            </div>
+                            <div class="demo-buttons">
+                                <button class="demo-btn primary" onclick="openDemoModal('business')">View Demos</button>
+                                <a href="#contact" class="demo-btn secondary">Get Quote</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="demo-info">
-                        <div class="demo-icon">🏢</div>
-                        <h4>Small Business</h4>
-                        <p class="demo-desc">Professional websites for local businesses, startups & service providers</p>
-                        <div class="demo-features">
-                            <span class="demo-feature"><i class="fas fa-envelope"></i> Contact</span>
-                            <span class="demo-feature"><i class="fas fa-map-marker-alt"></i> Maps</span>
-                            <span class="demo-feature"><i class="fas fa-bullhorn"></i> Advertisement</span>
-                            <span class="demo-feature"><i class="fab fa-whatsapp"></i> WhatsApp</span>
-                        </div>
-                        <div class="demo-buttons">
-                            <button class="demo-btn primary" onclick="openDemoModal('business')">View Demos</button>
-                            <a href="#contact" class="demo-btn secondary">Get Quote</a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- E-Commerce Demo Card -->
-                <div class="demo-card">
-                    <div class="demo-image">
-                        <img src="https://images.pexels.com/photos/34577/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600" alt="E-Commerce Demo">
-                        <div class="demo-overlay">
-                            <span class="demo-category">E-Commerce</span>
+                    <!-- E-Commerce Demo Card -->
+                    <div class="demo-card card-scroll-highlight">
+                        <div class="demo-image">
+                            <img src="https://images.pexels.com/photos/34577/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600" alt="E-Commerce Demo" loading="lazy">
+                            <div class="demo-overlay">
+                                <span class="demo-category">E-Commerce</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="demo-info">
-                        <div class="demo-icon">🛍️</div>
-                        <h4>E-Commerce Store</h4>
-                        <p class="demo-desc">Full-featured online stores with payment gateway & product management</p>
-                        <div class="demo-features">
-                            <span class="demo-feature"><i class="fas fa-shopping-cart"></i> Cart</span>
-                            <span class="demo-feature"><i class="fas fa-credit-card"></i> Payments</span>
-                            <span class="demo-feature"><i class="fas fa-box"></i> Inventory</span>
-                            <span class="demo-feature"><i class="fas fa-truck"></i> Delivery</span>
-                        </div>
-                        <div class="demo-buttons">
-                            <button class="demo-btn primary" onclick="openDemoModal('ecommerce')">View Demos</button>
-                            <a href="#contact" class="demo-btn secondary">Get Quote</a>
+                        <div class="demo-info">
+                            <div class="demo-icon">🛍️</div>
+                            <h4>E-Commerce Store</h4>
+                            <p class="demo-desc">Full-featured online stores with payment gateway & product management</p>
+                            <div class="demo-features">
+                                <span class="demo-feature"><i class="fas fa-shopping-cart"></i> Cart</span>
+                                <span class="demo-feature"><i class="fas fa-credit-card"></i> Payments</span>
+                                <span class="demo-feature"><i class="fas fa-box"></i> Inventory</span>
+                                <span class="demo-feature"><i class="fas fa-truck"></i> Delivery</span>
+                            </div>
+                            <div class="demo-buttons">
+                                <button class="demo-btn primary" onclick="openDemoModal('ecommerce')">View Demos</button>
+                                <a href="#contact" class="demo-btn secondary">Get Quote</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Scroll dots indicator -->
+            <div class="scroll-dots" id="scrollDots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
         </div>
     </div>
@@ -275,7 +290,7 @@
             <p class="demo-modal-subtitle">Choose a wedding demo:</p>
             <div class="demo-icons-grid">
                 <!-- Wedding Demo 1 -->
-                <div class="demo-icon-card" onclick="openDemoLink('wedding1')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('wedding1')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-heart"></i>
                     </div>
@@ -284,7 +299,7 @@
                 </div>
                 
                 <!-- Wedding Demo 2 -->
-                <div class="demo-icon-card" onclick="openDemoLink('wedding2')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('wedding2')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-ring"></i>
                     </div>
@@ -293,7 +308,7 @@
                 </div>
                 
                 <!-- Wedding Demo 3 -->
-                <div class="demo-icon-card" onclick="openDemoLink('wedding3')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('wedding3')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-leaf"></i>
                     </div>
@@ -302,7 +317,7 @@
                 </div>
                 
                 <!-- Wedding Demo 4 -->
-                <div class="demo-icon-card" onclick="openDemoLink('wedding4')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('wedding4')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-crown"></i>
                     </div>
@@ -325,7 +340,7 @@
             <p class="demo-modal-subtitle">Choose a business demo:</p>
             <div class="demo-icons-grid">
                 <!-- Business Demo 1 -->
-                <div class="demo-icon-card" onclick="openDemoLink('business1')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('business1')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-store"></i>
                     </div>
@@ -334,7 +349,7 @@
                 </div>
                 
                 <!-- Business Demo 2 -->
-                <div class="demo-icon-card" onclick="openDemoLink('business2')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('business2')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-chart-line"></i>
                     </div>
@@ -343,7 +358,7 @@
                 </div>
                 
                 <!-- Business Demo 3 -->
-                <div class="demo-icon-card" onclick="openDemoLink('business3')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('business3')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-briefcase"></i>
                     </div>
@@ -352,7 +367,7 @@
                 </div>
                 
                 <!-- Business Demo 4 -->
-                <div class="demo-icon-card" onclick="openDemoLink('business4')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('business4')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-hotel"></i>
                     </div>
@@ -375,7 +390,7 @@
             <p class="demo-modal-subtitle">Choose an e-commerce demo:</p>
             <div class="demo-icons-grid">
                 <!-- E-Commerce Demo 1 -->
-                <div class="demo-icon-card" onclick="openDemoLink('ecommerce1')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('ecommerce1')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-tshirt"></i>
                     </div>
@@ -384,7 +399,7 @@
                 </div>
                 
                 <!-- E-Commerce Demo 2 -->
-                <div class="demo-icon-card" onclick="openDemoLink('ecommerce2')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('ecommerce2')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
@@ -393,7 +408,7 @@
                 </div>
                 
                 <!-- E-Commerce Demo 3 -->
-                <div class="demo-icon-card" onclick="openDemoLink('ecommerce3')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('ecommerce3')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-couch"></i>
                     </div>
@@ -402,7 +417,7 @@
                 </div>
                 
                 <!-- E-Commerce Demo 4 -->
-                <div class="demo-icon-card" onclick="openDemoLink('ecommerce4')">
+                <div class="demo-icon-card card-scroll-highlight" onclick="openDemoLink('ecommerce4')">
                     <div class="demo-icon-wrapper">
                         <i class="fas fa-gem"></i>
                     </div>
@@ -496,9 +511,14 @@
             <div class="copyright">
                 <p>© 2025 SushTech. All rights reserved. | Website Developer in Pune</p>
             </div>
-        </div> <!-- FIXED: Added missing closing div -->
+        </div>
     </div>
 </footer>
+
+<!-- Back to Top Button -->
+<button id="backToTop" class="back-to-top" aria-label="Back to Top">
+    <i class="fas fa-arrow-up"></i>
+</button>
 
 <!-- Floating WhatsApp Button -->
 <a href="https://wa.me/919021496257?text=Hello%20SushTech%2C%20I'm%20interested%20in%20your%20services" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
