@@ -101,26 +101,26 @@ const SUSHITECH_CONFIG = {
     //Demo links
     // Wedding Demo Links
     weddingDemos: {
-        wedding1: "https://sushant-0611.github.io/sushtech-website/wedding-demo/Template_1.html",  // Traditional
-        wedding2: "https://sushant-0611.github.io/sushtech-website/wedding-demo/Template_2.html",  // Modern
-        wedding3: "https://sushant-0611.github.io/sushtech-website/wedding-demo/Template_3.html",  // Garden
-        wedding4: "https://sushant-0611.github.io/sushtech-website/wedding-demo/Template_4.html"   // Premium
+        wedding1: "https://sushant-0611.github.io/wedding-demo/Template_1.html",  // Traditional
+        wedding2: "https://sushant-0611.github.io/wedding-demo/Template_2.html",  // Modern
+        wedding3: "https://sushant-0611.github.io/wedding-demo/Template_3.htmll",  // Garden
+        wedding4: "https://sushant-0611.github.io/wedding-demo/Template_4.html"   // Premium
     },
     
     // Business Demo Links
     businessDemos: {
-        business1: "https://sushant-0611.github.io/sushtech-website/Business-demo/Template_1.html", // Startup
-        business2: "https://sushant-0611.github.io/sushtech-website/Business-demo/Template_2.html", // Corporate
-        business3: "https://sushant-0611.github.io/sushtech-website/Business-demo/Template_3.html", // Portfolio
-        business4: "https://sushant-0611.github.io/sushtech-website/Business-demo/Template_4.html"  // Restaurant
+        business1: "https://sushant-0611.github.io/Business-demo/Template_1.html", // Startup
+        business2: "https://sushant-0611.github.io/Business-demo/Template_2.html", // Corporate
+        business3: "https://sushant-0611.github.io/Business-demo/Template_3.html", // Portfolio
+        business4: "https://sushant-0611.github.io/Business-demo/Template_4.html"  // Restaurant
     },
     
     // E-Commerce Demo Links
     ecommerceDemos: {
-        ecommerce1: "https://sushant-0611.github.io/sushtech-website/E-Commerce-demo/Template_1.html", // Fashion
-        ecommerce2: "https://sushant-0611.github.io/sushtech-website/E-Commerce-demo/Template_1.html", // Electronics
-        ecommerce3: "https://sushant-0611.github.io/sushtech-website/E-Commerce-demo/Template_1.html", // Furniture
-        ecommerce4: "https://sushant-0611.github.io/sushtech-website/E-Commerce-demo/Template_1.html"  // Jewelry
+        ecommerce1: "https://sushant-0611.github.io/E-Commerce-demo/Template_1.html", // Fashion
+        ecommerce2: "https://sushant-0611.github.io/E-Commerce-demo/Template_1.html", // Electronics
+        ecommerce3: "https://sushant-0611.github.io/E-Commerce-demo/Template_1.html", // Furniture
+        ecommerce4: "https://sushant-0611.github.io/E-Commerce-demo/Template_1.html"  // Jewelry
     },
     
     // Social Links
@@ -146,6 +146,7 @@ const SUSHITECH_CONFIG = {
 }
 
 };
+
 
 
 
