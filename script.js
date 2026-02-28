@@ -1,4 +1,4 @@
-// script.js - SushTech Main JavaScript (Optimized Version)
+// script.js - SushTech Main JavaScript (Core Web Vitals Optimized)
 
 // ========== UTILITY FUNCTIONS ==========
 // Batch DOM reads/writes to prevent layout thrashing
@@ -7,7 +7,6 @@ const DOMHandler = {
     writes: [],
     scheduled: false,
     
-    // Schedule a batch operation
     schedule() {
         if (this.scheduled) return;
         this.scheduled = true;
@@ -28,7 +27,6 @@ const DOMHandler = {
             
             writes.forEach((fn, index) => {
                 try { 
-                    // Pass corresponding read result if available
                     fn(readResults[index]); 
                 } catch (e) { 
                     console.error('DOM write error:', e); 
@@ -44,45 +42,35 @@ const DOMHandler = {
         });
     },
     
-    // Queue a read operation
-    read(fn) {
-        this.reads.push(fn);
-        this.schedule();
-    },
-    
-    // Queue a write operation
-    write(fn) {
-        this.writes.push(fn);
-        this.schedule();
-    }
+    read(fn) { this.reads.push(fn); this.schedule(); },
+    write(fn) { this.writes.push(fn); this.schedule(); }
 };
 
-// Throttle function for performance optimization
-function throttle(func, limit) {
-    let inThrottle;
+// Optimized throttle with requestAnimationFrame
+function rafThrottle(func) {
+    let ticking = false;
     return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(() => {
+                func.apply(this, args);
+                ticking = false;
+            });
         }
     };
 }
 
 // ========== RIGHT SIDE PANEL MENU ==========
-document.addEventListener('DOMContentLoaded', function() {
+function initSidePanel() {
     const menuToggle = document.getElementById('menuToggle');
     const sidePanel = document.getElementById('sidePanel');
     const closePanel = document.getElementById('closePanel');
     const overlay = document.getElementById('overlay');
     const panelLinks = document.querySelectorAll('.panel-link');
     
-    // Check if elements exist
     if (!menuToggle || !sidePanel || !closePanel || !overlay) return;
     
-    // Function to open panel
     function openPanel() {
-        // Use DOMHandler for batch operations
         DOMHandler.write(() => {
             sidePanel.classList.add('active');
             overlay.classList.add('active');
@@ -91,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Function to close panel
     function closePanelMenu() {
         DOMHandler.write(() => {
             sidePanel.classList.remove('active');
@@ -101,32 +88,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    menuToggle.addEventListener('click', openPanel);
-    closePanel.addEventListener('click', closePanelMenu);
-    overlay.addEventListener('click', closePanelMenu);
+    menuToggle.addEventListener('click', openPanel, { passive: true });
+    closePanel.addEventListener('click', closePanelMenu, { passive: true });
+    overlay.addEventListener('click', closePanelMenu, { passive: true });
     
     panelLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            closePanelMenu();
-        });
+        link.addEventListener('click', closePanelMenu, { passive: true });
     });
     
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && sidePanel.classList.contains('active')) {
             closePanelMenu();
         }
     });
     
-    // Optimized resize handler - using throttle
-    window.addEventListener('resize', throttle(function() {
+    // Optimized resize handler
+    window.addEventListener('resize', rafThrottle(() => {
         if (window.innerWidth > 767 && sidePanel.classList.contains('active')) {
             closePanelMenu();
         }
-    }, 100));
-});
-
-// ========== USE CONFIG FROM GLOBAL SCOPE ==========
-// config is already available from config.js as SUSHITECH_CONFIG
+    }), { passive: true });
+}
 
 // ========== POPULATE PRICING CARDS FROM CONFIG ==========
 function populatePricingCards() {
@@ -137,7 +119,6 @@ function populatePricingCards() {
     const plans = config.pricing;
     let html = '';
     
-    // Loop through pricing plans from config
     Object.keys(plans).forEach((key) => {
         const plan = plans[key];
         const popularClass = plan.popular ? 'popular' : '';
@@ -160,10 +141,7 @@ function populatePricingCards() {
         `;
     });
     
-    // Single DOM write operation
-    DOMHandler.write(() => {
-        pricingGrid.innerHTML = html;
-    });
+    DOMHandler.write(() => { pricingGrid.innerHTML = html; });
 }
 
 // ========== POPULATE FEATURES FROM CONFIG ==========
@@ -184,9 +162,7 @@ function populateFeatures() {
         `;
     });
     
-    DOMHandler.write(() => {
-        featuresGrid.innerHTML = html;
-    });
+    DOMHandler.write(() => { featuresGrid.innerHTML = html; });
 }
 
 // ========== POPULATE FOUNDER CARD FROM CONFIG ==========
@@ -216,12 +192,9 @@ function populateFounder() {
 }
 
 // ========== DEMO MODAL FUNCTIONS ==========
-// Make functions global
 window.openDemoModal = function(category) {
-    // Close any open modals first
     closeAllModals();
     
-    // Open the specific category modal
     const modalId = category + 'DemoModal';
     const modal = document.getElementById(modalId);
     if (modal) {
@@ -245,9 +218,7 @@ window.closeModal = function(modalId) {
 function closeAllModals() {
     const modals = document.querySelectorAll('.demo-modal');
     DOMHandler.write(() => {
-        modals.forEach(modal => {
-            modal.classList.remove('active');
-        });
+        modals.forEach(modal => modal.classList.remove('active'));
         document.body.style.overflow = '';
     });
 }
@@ -259,119 +230,80 @@ window.openDemoLink = function(demoKey) {
         return;
     }
     
-    // Determine which category the demo belongs to
     let demoLink = null;
     
-    // Check in wedding demos
-    if (SUSHITECH_CONFIG.weddingDemos && SUSHITECH_CONFIG.weddingDemos[demoKey]) {
+    if (SUSHITECH_CONFIG.weddingDemos?.[demoKey]) {
         demoLink = SUSHITECH_CONFIG.weddingDemos[demoKey];
-    }
-    // Check in business demos
-    else if (SUSHITECH_CONFIG.businessDemos && SUSHITECH_CONFIG.businessDemos[demoKey]) {
+    } else if (SUSHITECH_CONFIG.businessDemos?.[demoKey]) {
         demoLink = SUSHITECH_CONFIG.businessDemos[demoKey];
-    }
-    // Check in ecommerce demos
-    else if (SUSHITECH_CONFIG.ecommerceDemos && SUSHITECH_CONFIG.ecommerceDemos[demoKey]) {
+    } else if (SUSHITECH_CONFIG.ecommerceDemos?.[demoKey]) {
         demoLink = SUSHITECH_CONFIG.ecommerceDemos[demoKey];
     }
     
     if (demoLink) {
         window.open(demoLink, '_blank');
-        closeAllModals(); // Close modal after opening link
+        closeAllModals();
     } else {
         console.error(`❌ No link found for demo: ${demoKey}`);
         alert('Demo link not available. Please try again later.');
     }
 };
 
-// Close modal when clicking outside
-document.addEventListener('click', function(e) {
+// Event delegation for modal clicks (better performance)
+document.addEventListener('click', (e) => {
     if (e.target.classList.contains('demo-modal')) {
         closeAllModals();
     }
 });
 
-// Close on Escape key
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeAllModals();
     }
 });
 
-// ========== POPULATE SOCIAL LINKS IN FOOTER ==========
+// ========== POPULATE SOCIAL LINKS ==========
 function populateSocialLinks() {
     const socialLinksContainer = document.querySelector('.social-links');
     if (!socialLinksContainer || typeof SUSHITECH_CONFIG === 'undefined') return;
     
     const config = SUSHITECH_CONFIG;
     const social = config.social;
-    
-    // Create document fragment to batch DOM operations
     const fragment = document.createDocumentFragment();
     
-    // Create social links from config
-    if (social.linkedin) {
-        const link = document.createElement('a');
-        link.href = social.linkedin;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.innerHTML = '<i class="fab fa-linkedin"></i>';
-        link.title = 'LinkedIn';
-        link.setAttribute('aria-label', 'LinkedIn');
-        fragment.appendChild(link);
-    }
+    const socialPlatforms = [
+        { key: 'linkedin', icon: 'linkedin' },
+        { key: 'instagram', icon: 'instagram' },
+        { key: 'github', icon: 'github' },
+        { key: 'twitter', icon: 'twitter' }
+    ];
     
-    if (social.instagram) {
-        const link = document.createElement('a');
-        link.href = social.instagram;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.innerHTML = '<i class="fab fa-instagram"></i>';
-        link.title = 'Instagram';
-        link.setAttribute('aria-label', 'Instagram');
-        fragment.appendChild(link);
-    }
+    socialPlatforms.forEach(({ key, icon }) => {
+        if (social[key]) {
+            const link = document.createElement('a');
+            link.href = social[key];
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.innerHTML = `<i class="fab fa-${icon}"></i>`;
+            link.title = icon.charAt(0).toUpperCase() + icon.slice(1);
+            link.setAttribute('aria-label', icon);
+            fragment.appendChild(link);
+        }
+    });
     
-    if (social.github) {
-        const link = document.createElement('a');
-        link.href = social.github;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.innerHTML = '<i class="fab fa-github"></i>';
-        link.title = 'GitHub';
-        link.setAttribute('aria-label', 'GitHub');
-        fragment.appendChild(link);
-    }
-    
-    if (social.twitter) {
-        const link = document.createElement('a');
-        link.href = social.twitter;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.innerHTML = '<i class="fab fa-twitter"></i>';
-        link.title = 'Twitter';
-        link.setAttribute('aria-label', 'Twitter');
-        fragment.appendChild(link);
-    }
-    
-    // Single DOM write operation
     DOMHandler.write(() => {
         socialLinksContainer.innerHTML = '';
         socialLinksContainer.appendChild(fragment);
     });
-    
-    console.log('✅ Social links populated from config:', social);
 }
 
-// ========== POPULATE CONTACT INFO FROM CONFIG ==========
+// ========== POPULATE CONTACT INFO ==========
 function populateContactInfo() {
     const contactInfo = document.querySelector('.contact-info');
     if (!contactInfo || typeof SUSHITECH_CONFIG === 'undefined') return;
     
     const config = SUSHITECH_CONFIG;
     const company = config.company;
-    
-    // Format WhatsApp number
     const cleanWhatsapp = company.whatsapp.replace(/[^0-9]/g, '');
     const whatsappMessage = encodeURIComponent(`Hello ${company.name}, I'm interested in your services`);
     
@@ -396,7 +328,7 @@ function populateContactInfo() {
     }
 }
 
-// ========== UPDATE WHATSAPP FLOAT LINK ==========
+// ========== UPDATE WHATSAPP FLOAT ==========
 function updateWhatsAppFloat() {
     const whatsappFloat = document.querySelector('.whatsapp-float');
     if (!whatsappFloat || typeof SUSHITECH_CONFIG === 'undefined') return;
@@ -411,7 +343,7 @@ function updateWhatsAppFloat() {
     });
 }
 
-// ========== UPDATE FOOTER WITH COMPANY INFO ==========
+// ========== UPDATE FOOTER ==========
 function updateFooter() {
     const footer = document.querySelector('footer p');
     if (!footer || typeof SUSHITECH_CONFIG === 'undefined') return;
@@ -425,8 +357,10 @@ function updateFooter() {
 }
 
 // ========== FORM SUBMISSION ==========
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
+function initContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm) return;
+    
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
@@ -450,83 +384,62 @@ if (contactForm) {
     });
 }
 
-// ========== SMOOTH SCROLL FOR NAVIGATION ==========
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const target = document.querySelector(targetId);
-        
-        if (target) {
-            // Use requestAnimationFrame for smooth scroll
-            requestAnimationFrame(() => {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+// ========== SMOOTH SCROLL ==========
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const target = document.querySelector(targetId);
+            
+            if (target) {
+                requestAnimationFrame(() => {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 });
-            });
-        }
+            }
+        }, { passive: false });
     });
-});
+}
 
-// ========== INTERSECTION OBSERVER FOR ACTIVE NAVIGATION ==========
-// Replaces scroll-based highlight with efficient IntersectionObserver
+// ========== INTERSECTION OBSERVER FOR NAVIGATION ==========
 function initNavigationObserver() {
     const sections = document.querySelectorAll('section');
     const panelLinks = document.querySelectorAll('.panel-link');
     
     if (sections.length === 0 || panelLinks.length === 0) return;
     
-    // Cache section IDs and their corresponding links
     const sectionMap = new Map();
     sections.forEach(section => {
         const id = section.getAttribute('id');
         const link = Array.from(panelLinks).find(link => link.getAttribute('href') === `#${id}`);
-        if (link) {
-            sectionMap.set(section, { id, link });
-        }
+        if (link) sectionMap.set(section, link);
     });
-    
-    // Intersection Observer options
-    const options = {
-        threshold: 0.3, // Trigger when 30% of section is visible
-        rootMargin: '-50px 0px -50px 0px' // Adjust visible area
-    };
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            const section = entry.target;
-            const sectionData = sectionMap.get(section);
+            const link = sectionMap.get(entry.target);
+            if (!link) return;
             
-            if (!sectionData) return;
-            
-            const { link } = sectionData;
-            
-            // Batch DOM writes
             DOMHandler.write(() => {
                 if (entry.isIntersecting) {
-                    // Remove active class from all links
                     panelLinks.forEach(l => {
                         l.classList.remove('active');
                         l.style.borderLeftColor = 'transparent';
                         l.style.color = '#F8FAFC';
                     });
                     
-                    // Add active class to current link
                     link.classList.add('active');
                     link.style.borderLeftColor = '#22D3EE';
                     link.style.color = '#22D3EE';
                 }
             });
         });
-    }, options);
+    }, { threshold: 0.3, rootMargin: '-50px 0px -50px 0px' });
     
-    // Observe all sections
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-    
-    console.log('✅ Navigation observer initialized');
+    sections.forEach(section => observer.observe(section));
 }
 
 // ========== BACK TO TOP BUTTON ==========
@@ -534,27 +447,18 @@ function initBackToTop() {
     const backToTopButton = document.getElementById('backToTop');
     if (!backToTopButton) return;
     
-    // Show/hide button based on scroll position
-    window.addEventListener('scroll', throttle(function() {
-        // Use requestAnimationFrame for scroll handling
-        requestAnimationFrame(() => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('show');
-            } else {
-                backToTopButton.classList.remove('show');
-            }
+    // Use passive scroll listener with RAF throttling
+    window.addEventListener('scroll', rafThrottle(() => {
+        DOMHandler.write(() => {
+            backToTopButton.classList.toggle('show', window.scrollY > 300);
         });
-    }, 100));
+    }), { passive: true });
     
-    // Smooth scroll to top when clicked
-    backToTopButton.addEventListener('click', function() {
+    backToTopButton.addEventListener('click', () => {
         requestAnimationFrame(() => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    });
+    }, { passive: true });
 }
 
 // ========== HORIZONTAL SCROLL INDICATOR ==========
@@ -565,9 +469,7 @@ function initHorizontalScrollIndicator() {
     
     if (!demoGrid || dots.length === 0) return;
     
-    // Cache DOM reads to avoid forced reflow
-    let cardWidth = 300; // Default
-    let gap = 25; // Default
+    let cardWidth = 300, gap = 25;
     
     // Read dimensions once
     const firstCard = demoGrid.querySelector('.demo-card');
@@ -578,113 +480,69 @@ function initHorizontalScrollIndicator() {
         });
     }
     
-    // Update dots on scroll - throttled and using requestAnimationFrame
-    demoGrid.addEventListener('scroll', throttle(function() {
-        requestAnimationFrame(() => {
-            const scrollLeft = demoGrid.scrollLeft;
-            const maxScroll = demoGrid.scrollWidth - demoGrid.clientWidth;
-            const scrollPercentage = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
-            
-            // Update active dot based on scroll position
-            if (scrollPercentage < 33) {
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === 0);
-                });
-            } else if (scrollPercentage < 66) {
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === 1);
-                });
-            } else {
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === 2);
-                });
-            }
-            
-            // Hide gradient when scrolled to end
-            if (demoGrid.scrollLeft + demoGrid.clientWidth >= demoGrid.scrollWidth - 10) {
-                demoGrid.style.setProperty('--gradient-opacity', '0');
-            } else {
-                demoGrid.style.setProperty('--gradient-opacity', '1');
-            }
-        });
-    }, 50));
+    // Optimized scroll handler
+    demoGrid.addEventListener('scroll', rafThrottle(() => {
+        const scrollLeft = demoGrid.scrollLeft;
+        const maxScroll = demoGrid.scrollWidth - demoGrid.clientWidth;
+        const scrollPercentage = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+        
+        // Update dots
+        const activeIndex = scrollPercentage < 33 ? 0 : scrollPercentage < 66 ? 1 : 2;
+        dots.forEach((dot, index) => dot.classList.toggle('active', index === activeIndex));
+        
+        // Update gradient
+        const gradientOpacity = (scrollLeft + demoGrid.clientWidth >= demoGrid.scrollWidth - 10) ? '0' : '1';
+        demoGrid.style.setProperty('--gradient-opacity', gradientOpacity);
+    }), { passive: true });
     
-    // Click on dots to scroll
+    // Click handlers for dots
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            // Use cached values or read fresh in a batch
             DOMHandler.read(() => {
                 const currentCardWidth = demoGrid.querySelector('.demo-card')?.offsetWidth || cardWidth;
                 const currentGap = parseInt(window.getComputedStyle(demoGrid).gap) || gap;
                 const scrollTo = index * (currentCardWidth + currentGap);
                 
                 requestAnimationFrame(() => {
-                    demoGrid.scrollTo({
-                        left: scrollTo,
-                        behavior: 'smooth'
-                    });
+                    demoGrid.scrollTo({ left: scrollTo, behavior: 'smooth' });
                 });
             });
-        });
+        }, { passive: true });
     });
     
-    // Hide indicator after user scrolls once
+    // Hide indicator after first scroll
     if (scrollIndicator) {
-        let hasScrolled = false;
-        
-        demoGrid.addEventListener('scroll', function() {
-            if (!hasScrolled) {
-                hasScrolled = true;
-                setTimeout(() => {
-                    requestAnimationFrame(() => {
-                        scrollIndicator.style.opacity = '0';
-                        scrollIndicator.style.transition = 'opacity 0.5s ease';
-                    });
-                }, 2000);
-            }
-        }, { once: true }); // Use once option for efficiency
+        demoGrid.addEventListener('scroll', () => {
+            requestAnimationFrame(() => {
+                scrollIndicator.style.opacity = '0';
+                scrollIndicator.style.transition = 'opacity 0.5s ease';
+            });
+        }, { once: true, passive: true });
     }
 }
 
-// ========== CARD SCROLL HIGHLIGHT ANIMATION ==========
+// ========== CARD HIGHLIGHT OBSERVERS ==========
 function initCardHighlight() {
     const cards = document.querySelectorAll('.card-scroll-highlight');
-    
     if (cards.length === 0) return;
     
-    // Create Intersection Observer
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            // Batch DOM operations
             requestAnimationFrame(() => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('card-visible');
-                } else {
-                    entry.target.classList.remove('card-visible');
-                }
+                entry.target.classList.toggle('card-visible', entry.isIntersecting);
             });
         });
-    }, {
-        threshold: 0.3,
-        rootMargin: '0px 0px -50px 0px'
-    });
+    }, { threshold: 0.3, rootMargin: '0px 0px -50px 0px' });
     
-    // Observe each card
-    cards.forEach(card => {
-        observer.observe(card);
-    });
-    
-    console.log(`✅ Card highlight initialized for ${cards.length} cards`);
+    cards.forEach(card => observer.observe(card));
 }
 
-// ========== HORIZONTAL CARDS OBSERVER ==========
 function initHorizontalCardsObserver() {
     const demoGrid = document.getElementById('demoGrid');
     const cards = document.querySelectorAll('.demo-card');
     
     if (!demoGrid || cards.length === 0) return;
     
-    // Create observer for horizontal cards with custom threshold
     const horizontalObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             requestAnimationFrame(() => {
@@ -693,59 +551,61 @@ function initHorizontalCardsObserver() {
                 } else {
                     const rect = entry.target.getBoundingClientRect();
                     const containerRect = demoGrid.getBoundingClientRect();
-                    
-                    if (rect.right > containerRect.left && rect.left < containerRect.right) {
-                        entry.target.classList.add('card-visible');
-                    } else {
-                        entry.target.classList.remove('card-visible');
-                    }
+                    const isPartiallyVisible = rect.right > containerRect.left && rect.left < containerRect.right;
+                    entry.target.classList.toggle('card-visible', isPartiallyVisible);
                 }
             });
         });
-    }, {
-        threshold: [0, 0.3, 0.6, 1],
-        root: demoGrid,
-        rootMargin: '0px'
-    });
+    }, { threshold: [0, 0.3, 0.6, 1], root: demoGrid });
     
-    cards.forEach(card => {
-        horizontalObserver.observe(card);
-    });
+    cards.forEach(card => horizontalObserver.observe(card));
 }
 
-// ========== INITIALIZE PAGE ==========
-function init() {
-    // Check if config is loaded
-    if (typeof SUSHITECH_CONFIG === 'undefined') {
-        console.error('❌ config.js not loaded! Make sure config.js is included before script.js');
-        return;
-    }
-    
-    // Populate all dynamic content from config
-    populatePricingCards();
-    populateFeatures();
-    populateFounder();
-    populateContactInfo();
-    populateSocialLinks();
-    updateWhatsAppFloat();
-    updateFooter();
-    
-    // Initialize new features
+// ========== INITIALIZATION ==========
+// Critical initialization (runs immediately)
+function initCritical() {
+    initSidePanel();
+    initSmoothScroll();
     initBackToTop();
-    initHorizontalScrollIndicator();
-    
-    // Initialize navigation observer (replaces scroll-based highlight)
+    initContactForm();
     initNavigationObserver();
     
-    // Initialize card highlight after content is populated
-    setTimeout(() => {
-        initCardHighlight();
-        initHorizontalCardsObserver();
-    }, 500);
-    
-    console.log('✅ SushTech website initialized with config data and new features');
-    console.log('✅ Social links loaded from config:', SUSHITECH_CONFIG.social);
+    console.log('✅ Critical initialization complete');
 }
 
-// Start everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', init);
+// Non-critical initialization (runs after load)
+function initNonCritical() {
+    // Populate content from config
+    if (typeof SUSHITECH_CONFIG !== 'undefined') {
+        populatePricingCards();
+        populateFeatures();
+        populateFounder();
+        populateContactInfo();
+        populateSocialLinks();
+        updateWhatsAppFloat();
+        updateFooter();
+        
+        // Initialize observers after content is ready
+        setTimeout(() => {
+            initCardHighlight();
+            initHorizontalCardsObserver();
+            initHorizontalScrollIndicator();
+        }, 100);
+    }
+    
+    console.log('✅ Non-critical initialization complete');
+}
+
+// Start critical initialization immediately
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCritical);
+} else {
+    initCritical();
+}
+
+// Defer non-critical initialization to after load
+if (document.readyState === 'complete') {
+    initNonCritical();
+} else {
+    window.addEventListener('load', initNonCritical, { once: true, passive: true });
+}
