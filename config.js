@@ -4,7 +4,7 @@ const SUSHITECH_CONFIG = {
     company: {
         name: "SushTech",
         founder: "Sushant Kakade",
-        email: "contact@sushtech.in",
+        email: "sushtech@gmail.com",
         phone: "+91 9021496257",
         whatsapp: "+91 9021496257",
         hours: "Mon - Sat, 10:00 - 19:00",
@@ -13,12 +13,12 @@ const SUSHITECH_CONFIG = {
         founderAge: "21"
     },
 
-    // Pricing Plans - Premium Packages
-    pricing: {
-        starter: {
-            name: "Starter Kit",
-            price: "₹6,999",
-            priceSuffix: "onwards",
+    // Pricing Plans - Premium Packages (UPDATED NAMES)
+    featuresCards: {
+        basic: {  // Renamed from starter to basic
+            name: "Basic",
+            price: "",
+            priceSuffix: "",
             features: [
                 "Up to 5 Pages Website",
                 "Mobile Responsive Design",
@@ -27,15 +27,15 @@ const SUSHITECH_CONFIG = {
                 "1 Month Free Support"
             ],
             note: "Perfect for startups & small businesses",
-            badge: "🌱", // Plant icon for starter
+            badge: "🔰", // Plant icon for basic
             badgeColor: "#22D3EE", // Cyan
             popular: false
         },
 
-        premium: {
-            name: "Premium Plus",
-            price: "₹14,999",
-            priceSuffix: "onwards",
+        standard: {  // Renamed from premium to standard
+            name: "Standard",
+            price: "",
+            priceSuffix: "",
             features: [
                 "Up to 10 Pages Website",
                 "Custom UI/UX Design",
@@ -47,15 +47,15 @@ const SUSHITECH_CONFIG = {
                 "3 Months Priority Support"
             ],
             note: "Most Popular - Best for growing businesses",
-            badge: "⭐", // Star for premium
+            badge: "🌟", // Star for standard
             badgeColor: "#F59E0B", // Gold/Amber
             popular: true
         },
 
-        enterprise: {
-            name: "Enterprise Pro",
-            price: "₹29,999",
-            priceSuffix: "+",
+        premium: {  // Renamed from enterprise to premium
+            name: "Premium",
+            price: "",
+            priceSuffix: "",
             features: [
                 "Unlimited Pages",
                 "Custom Admin Dashboard",
@@ -68,7 +68,7 @@ const SUSHITECH_CONFIG = {
                 "Free SSL Certificate"
             ],
             note: "For e-commerce & large businesses",
-            badge: "👑", // Crown for enterprise
+            badge: "💎", // Crown for premium
             badgeColor: "#8B5CF6", // Purple
             popular: false
         }
@@ -98,7 +98,7 @@ const SUSHITECH_CONFIG = {
         }
     ],
 
-    //Demo links
+    // Demo links
     // Wedding Demo Links
     weddingDemos: {
         wedding1: "https://sushant-0611.github.io/wedding-demo/Template_1.html",  // Traditional
@@ -118,9 +118,9 @@ const SUSHITECH_CONFIG = {
     // E-Commerce Demo Links
     ecommerceDemos: {
         ecommerce1: "https://sushant-0611.github.io/E-Commerce-demo/Template_1.html", // Fashion
-        ecommerce2: "https://sushant-0611.github.io/E-Commerce-demo/Template_2.html", // Electronics
-        ecommerce3: "https://sushant-0611.github.io/E-Commerce-demo/Template_3.html", // Furniture
-        ecommerce4: "https://sushant-0611.github.io/E-Commerce-demo/Template_4.html"  // Jewelry
+        ecommerce2: "https://sushant-0611.github.io/E-Commerce-demo/Template_1.html", // Electronics
+        ecommerce3: "https://sushant-0611.github.io/E-Commerce-demo/Template_1.html", // Furniture
+        ecommerce4: "https://sushant-0611.github.io/E-Commerce-demo/Template_1.html"  // Jewelry
     },
     
     // Social Links
@@ -133,24 +133,15 @@ const SUSHITECH_CONFIG = {
 
     // SEO Defaults
     seo: {
-    title: "SushTech | Website Developer in Pune | Web Design, SEO & E-Commerce Solutions",
-    description: "SushTech provides affordable website development, SEO optimization, business websites, wedding websites and e-commerce solutions in Pune, India. Grow your business online with fast, secure and modern digital solutions.",
-    keywords: "website developer in Pune, web design Pune, affordable website India, SEO services Pune, e-commerce website developer India, business website design, startup website development, wedding invitation website, digital agency Pune, SushTech India",
-    author: "Sushant Kakade",
-    robots: "index, follow",
-    language: "English",
-    revisitAfter: "7 days",
-    ogTitle: "SushTech - Professional Website & Digital Solutions",
-    ogDescription: "We build fast, secure and affordable websites for startups, businesses and e-commerce brands in Pune & across India.",
-    ogType: "website"
-}
-
+        title: "SushTech | Website Developer in Pune | Web Design, SEO & E-Commerce Solutions",
+        description: "SushTech provides affordable website development, SEO optimization, business websites, wedding websites and e-commerce solutions in Pune, India. Grow your business online with fast, secure and modern digital solutions.",
+        keywords: "website developer in Pune, web design Pune, affordable website India, SEO services Pune, e-commerce website developer India, business website design, startup website development, wedding invitation website, digital agency Pune, SushTech India",
+        author: "Sushant Kakade",
+        robots: "index, follow",
+        language: "English",
+        revisitAfter: "7 days",
+        ogTitle: "SushTech - Professional Website & Digital Solutions",
+        ogDescription: "We build fast, secure and affordable websites for startups, businesses and e-commerce brands in Pune & across India.",
+        ogType: "website"
+    }
 };
-
-
-
-
-
-
-
-
