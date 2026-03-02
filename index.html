@@ -198,12 +198,36 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </noscript>
 
-    <!-- OPTIMIZED: Single CSS file import (all styles combined) -->
-    <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+    <!-- OPTIMIZED: Import all CSS files (deferred loading for better performance) -->
+    <link rel="stylesheet" href="css/base.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/animations.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/header.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/hero.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/buttons.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/pricing.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/why-choose.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/demo.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/about.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/contact.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/footer.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/floating-elements.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/responsive.css" media="print" onload="this.media='all'">
 
     <!-- Fallback for browsers without JavaScript -->
     <noscript>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="css/animations.css">
+        <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="css/hero.css">
+        <link rel="stylesheet" href="css/buttons.css">
+        <link rel="stylesheet" href="css/pricing.css">
+        <link rel="stylesheet" href="css/why-choose.css">
+        <link rel="stylesheet" href="css/demo.css">
+        <link rel="stylesheet" href="css/about.css">
+        <link rel="stylesheet" href="css/contact.css">
+        <link rel="stylesheet" href="css/footer.css">
+        <link rel="stylesheet" href="css/floating-elements.css">
+        <link rel="stylesheet" href="css/responsive.css">
     </noscript>
 
     <!-- OPTIMIZED: Preload hero images for LCP -->
@@ -220,7 +244,7 @@
 
         <div class="menu-icon" id="menuToggle">☰</div>
 
-        <!-- Right Side Panel Menu - Updated sequence to match menu order -->
+        <!-- Right Side Panel Menu - Reordered to match new sequence -->
         <div class="side-panel" id="sidePanel">
             <div class="panel-header">
                 <div class="panel-logo">
@@ -230,9 +254,9 @@
             </div>
             <nav class="panel-nav">
                 <a href="#home" class="panel-link">Home</a>
-                <a href="#demo" class="panel-link">Demo Websites</a>
                 <a href="#why-choose" class="panel-link">Why Us</a>
-                <a href="#features" class="panel-link">Features</a> <!-- UPDATED: from Pricing to Features -->
+                <a href="#features" class="panel-link">Features</a>
+                <a href="#demo" class="panel-link">Demo Websites</a>
                 <a href="#about" class="panel-link">About</a>
                 <a href="#contact" class="panel-link">Contact</a>
             </nav>
@@ -245,7 +269,7 @@
     <!-- Overlay for when panel is open -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (Home) -->
     <section id="home" class="hero">
         <div class="container">
             <h2>
@@ -254,7 +278,49 @@
             <p fetchpriority="high">Professional web development company delivering fast, secure, and high-performance digital solutions.</p>
             <div class="hero-buttons">
                 <a href="#contact" class="btn-primary">Get Free Consultation</a>
-                <a href="#features" class="btn-secondary">View Features</a> <!-- UPDATED: from Pricing to Features -->
+                <a href="#features" class="btn-secondary">View Features</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-choose" class="why-choose">
+        <div class="container">
+            <h3>Why Choose SushTech?</h3>
+            <div class="choose-grid">
+                <div class="choose-item">
+                    <i class="fas fa-rocket"></i>
+                    <h4>Fast Delivery</h4>
+                    <p>We respect your time. Get your website live in days, not weeks.</p>
+                </div>
+                <div class="choose-item">
+                    <i class="fas fa-tag"></i>
+                    <h4>Affordable Pricing</h4>
+                    <p>High-quality solutions without breaking your bank.</p>
+                </div>
+                <div class="choose-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Secure Hosting</h4>
+                    <p>Free SSL and daily backups for peace of mind.</p>
+                </div>
+                <div class="choose-item">
+                    <i class="fas fa-headset"></i>
+                    <h4>Local Support</h4>
+                    <p>We're based in India. Real people, fast response.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="pricing">
+        <div class="container">
+            <h3>Simple, Transparent Features</h3>
+            <div class="pricing-subhead">Choose the plan that fits your needs.</div>
+            
+            <!-- Features cards will be populated from config.js -->
+            <div class="pricing-grid" id="pricing-grid">
+                <!-- Dynamic content from JavaScript -->
             </div>
         </div>
     </section>
@@ -357,48 +423,6 @@
                     <span class="dot"></span>
                     <span class="dot"></span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Us Section -->
-    <section id="why-choose" class="why-choose">
-        <div class="container">
-            <h3>Why Choose SushTech?</h3>
-            <div class="choose-grid">
-                <div class="choose-item">
-                    <i class="fas fa-rocket"></i>
-                    <h4>Fast Delivery</h4>
-                    <p>We respect your time. Get your website live in days, not weeks.</p>
-                </div>
-                <div class="choose-item">
-                    <i class="fas fa-tag"></i>
-                    <h4>Affordable Pricing</h4>
-                    <p>High-quality solutions without breaking your bank.</p>
-                </div>
-                <div class="choose-item">
-                    <i class="fas fa-shield-alt"></i>
-                    <h4>Secure Hosting</h4>
-                    <p>Free SSL and daily backups for peace of mind.</p>
-                </div>
-                <div class="choose-item">
-                    <i class="fas fa-headset"></i>
-                    <h4>Local Support</h4>
-                    <p>We're based in India. Real people, fast response.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section - UPDATED: Section ID from "pricing" to "features" -->
-    <section id="features" class="pricing">
-        <div class="container">
-            <h3>Simple, Transparent Features</h3> <!-- UPDATED: from Pricing to Features -->
-            <div class="pricing-subhead">Choose the plan that fits your needs.</div>
-            
-            <!-- Features cards will be populated from config.js -->
-            <div class="pricing-grid" id="pricing-grid">
-                <!-- Dynamic content from JavaScript -->
             </div>
         </div>
     </section>
@@ -598,7 +622,7 @@
                     <ul>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#why-choose">Why Choose Us</a></li>
-                        <li><a href="#features">Features</a></li> <!-- UPDATED: from Pricing to Features -->
+                        <li><a href="#features">Features</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -607,10 +631,10 @@
                 <div class="footer-col">
                     <h5>Services</h5>
                     <ul>
-                        <li><a href="#features">Website Development</a></li> <!-- UPDATED: from Pricing to Features -->
-                        <li><a href="#features">E-Commerce Solutions</a></li> <!-- UPDATED: from Pricing to Features -->
-                        <li><a href="#features">SEO Services</a></li> <!-- UPDATED: from Pricing to Features -->
-                        <li><a href="#features">Wedding Websites</a></li> <!-- UPDATED: from Pricing to Features -->
+                        <li><a href="#features">Website Development</a></li>
+                        <li><a href="#features">E-Commerce Solutions</a></li>
+                        <li><a href="#features">SEO Services</a></li>
+                        <li><a href="#features">Wedding Websites</a></li>
                     </ul>
                 </div>
                 
@@ -706,5 +730,3 @@
     </script>
 </body>
 </html>
-
-
