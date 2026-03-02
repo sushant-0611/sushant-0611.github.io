@@ -110,13 +110,14 @@ function initSidePanel() {
     }), { passive: true });
 }
 
-// ========== POPULATE PRICING CARDS FROM CONFIG ==========
-function populatePricingCards() {
-    const pricingGrid = document.querySelector('.pricing-grid');
-    if (!pricingGrid || typeof SUSHITECH_CONFIG === 'undefined') return;
+// ========== POPULATE FEATURES CARDS FROM CONFIG ==========
+// UPDATED: Renamed function and references from pricing to featuresCards
+function populateFeaturesCards() {
+    const featuresGrid = document.querySelector('.pricing-grid'); // Class name remains same in HTML
+    if (!featuresGrid || typeof SUSHITECH_CONFIG === 'undefined') return;
     
     const config = SUSHITECH_CONFIG;
-    const plans = config.pricing;
+    const plans = config.featuresCards; // Updated from pricing to featuresCards
     let html = '';
     
     Object.keys(plans).forEach((key) => {
@@ -141,7 +142,7 @@ function populatePricingCards() {
         `;
     });
     
-    DOMHandler.write(() => { pricingGrid.innerHTML = html; });
+    DOMHandler.write(() => { featuresGrid.innerHTML = html; });
 }
 
 // ========== POPULATE FEATURES FROM CONFIG ==========
@@ -577,7 +578,7 @@ function initCritical() {
 function initNonCritical() {
     // Populate content from config
     if (typeof SUSHITECH_CONFIG !== 'undefined') {
-        populatePricingCards();
+        populateFeaturesCards(); // Updated function name
         populateFeatures();
         populateFounder();
         populateContactInfo();
