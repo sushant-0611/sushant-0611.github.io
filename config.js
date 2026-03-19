@@ -4,7 +4,7 @@ const SUSHITECH_CONFIG = {
     company: {
         name: "SushTech",
         founder: "Sushant Kakade",
-        email: "sushtech@gmail.com",
+        email: "sushtech.service@gmail.com",
         phone: "+91 9021496257",
         whatsapp: "+91 9021496257",
         hours: "Mon - Sat, 10:00 - 19:00",
