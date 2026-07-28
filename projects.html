@@ -278,31 +278,35 @@
         }
     </style>
 </head>
-<body>
+<body><!-- Loader: Shows until page is fully loaded -->
+    <div id="loader-wrapper">
+        <div class="loader"></div>
+    </div>
 
-    <!-- ===== HEADER (matching index.html) ===== -->
+    <!-- Header -->
     <header>
         <div class="logo">
-            <img src="SushTech_logo_transparent1.webp" alt="SushTech Logo" width="50" height="50">
+            <img src="SushTech_logo_transparent1.webp" loading="eager" fetchpriority="high" alt="SushTech Logo" width="50" height="50">
         </div>
+
         <div class="menu-icon" id="menuToggle">☰</div>
 
-        <!-- Side Panel -->
+        <!-- Right Side Panel Menu - Reordered to match new sequence -->
         <div class="side-panel" id="sidePanel">
             <div class="panel-header">
                 <div class="panel-logo">
-                    <img src="SushTech_logo_transparent1.webp" alt="Logo">
+                    <img src="SushTech_logo_transparent1.webp" loading="lazy" alt="Logo">
                 </div>
                 <div class="close-icon" id="closePanel">✕</div>
             </div>
             <nav class="panel-nav">
-                <a href="project.html" class="panel-link">Home</a>
-                <a href="project.html#why-choose" class="panel-link">Why Us</a>
-                <a href="project.html#features" class="panel-link">Features</a>
-                <a href="projects.html" class="panel-link active" style="border-left-color:var(--accent);">Projects</a>
-                <a href="project.html#demo" class="panel-link">Demo Websites</a>
-                <a href="project.html#about" class="panel-link">About</a>
-                <a href="project.html#contact" class="panel-link">Contact</a>
+                <a href="#home" class="panel-link">Home</a>
+                <a href="#why-choose" class="panel-link">Why Us</a>
+                <a href="#features" class="panel-link">Features</a>
+                <a href="projects.html" class="panel-link">Projects</a>
+                <a href="#demo" class="panel-link">Demo Websites</a>
+                <a href="#about" class="panel-link">About</a>
+                <a href="#contact" class="panel-link">Contact</a>
             </nav>
             <div class="panel-footer">
                 <p>© 2026 SushTech</p>
@@ -310,8 +314,9 @@
         </div>
     </header>
 
-    <!-- Overlay -->
+    <!-- Overlay for when panel is open -->
     <div class="overlay" id="overlay"></div>
+
 
     <!-- ===== PROJECTS PAGE CONTENT ===== -->
     <section class="container">
@@ -321,138 +326,8 @@
         </div>
 
         <div class="project-grid">
-            <!-- Wedding Project 1 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Wedding website" loading="lazy">
-                </div>
-                <div class="project-info">
-                    <span class="project-category"><i class="fas fa-heart"></i> Wedding</span>
-                    <h3>Aarav & Sneha</h3>
-                    <p>Elegant wedding invitation website with RSVP, gallery, and countdown timer.</p>
-                    <div class="project-tags">
-                        <span>RSVP</span>
-                        <span>Gallery</span>
-                        <span>Countdown</span>
-                        <span>Mobile-first</span>
-                    </div>
-                    <div class="project-buttons">
-                        <a href="#" class="project-btn">Live Demo</a>
-                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
-                    </div>
-                </div>
+            
             </div>
-
-            <!-- Wedding Project 2 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="https://images.pexels.com/photos/3014851/pexels-photo-3014851.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Wedding website" loading="lazy">
-                </div>
-                <div class="project-info">
-                    <span class="project-category"><i class="fas fa-ring"></i> Wedding</span>
-                    <h3>Rohan & Priya</h3>
-                    <p>Modern wedding site with integrated Google Maps, event schedule and photo gallery.</p>
-                    <div class="project-tags">
-                        <span>Maps</span>
-                        <span>Schedule</span>
-                        <span>Gallery</span>
-                        <span>RSVP</span>
-                    </div>
-                    <div class="project-buttons">
-                        <a href="#" class="project-btn">Live Demo</a>
-                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Business Project 1 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Business website" loading="lazy">
-                </div>
-                <div class="project-info">
-                    <span class="project-category"><i class="fas fa-briefcase"></i> Business</span>
-                    <h3>Startup Agency</h3>
-                    <p>Professional landing page for a digital marketing agency with contact form and service showcase.</p>
-                    <div class="project-tags">
-                        <span>Landing</span>
-                        <span>Contact Form</span>
-                        <span>Services</span>
-                        <span>SEO Ready</span>
-                    </div>
-                    <div class="project-buttons">
-                        <a href="#" class="project-btn">Live Demo</a>
-                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Business Project 2 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="https://images.pexels.com/photos/34577/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600" alt="Restaurant website" loading="lazy">
-                </div>
-                <div class="project-info">
-                    <span class="project-category"><i class="fas fa-utensils"></i> Restaurant</span>
-                    <h3>Spice Garden</h3>
-                    <p>Restaurant website with menu display, reservation system and location map.</p>
-                    <div class="project-tags">
-                        <span>Menu</span>
-                        <span>Reservation</span>
-                        <span>Maps</span>
-                        <span>Gallery</span>
-                    </div>
-                    <div class="project-buttons">
-                        <a href="#" class="project-btn">Live Demo</a>
-                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- E-Commerce Project 1 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="https://images.pexels.com/photos/298863/pexels-photo-298863.jpeg?auto=compress&cs=tinysrgb&w=600" alt="E-commerce store" loading="lazy">
-                </div>
-                <div class="project-info">
-                    <span class="project-category"><i class="fas fa-shopping-cart"></i> E-Commerce</span>
-                    <h3>Fashion Hub</h3>
-                    <p>Full-featured online clothing store with cart, payment gateway, and product filters.</p>
-                    <div class="project-tags">
-                        <span>Cart</span>
-                        <span>Payments</span>
-                        <span>Filters</span>
-                        <span>Inventory</span>
-                    </div>
-                    <div class="project-buttons">
-                        <a href="#" class="project-btn">Live Demo</a>
-                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- E-Commerce Project 2 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="https://images.pexels.com/photos/129208/pexels-photo-129208.jpeg?auto=compress&cs=tinysrgb&w=600" alt="E-commerce store" loading="lazy">
-                </div>
-                <div class="project-info">
-                    <span class="project-category"><i class="fas fa-gem"></i> E-Commerce</span>
-                    <h3>Jewelry Store</h3>
-                    <p>Elegant online jewelry store with high-res product images and secure checkout.</p>
-                    <div class="project-tags">
-                        <span>Gallery</span>
-                        <span>Checkout</span>
-                        <span>Secure</span>
-                        <span>Responsive</span>
-                    </div>
-                    <div class="project-buttons">
-                        <a href="#" class="project-btn">Live Demo</a>
-                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- ===== FOOTER ===== -->
