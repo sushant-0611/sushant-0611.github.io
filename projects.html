@@ -200,5 +200,43 @@
     });
 
     </script>
+  <script>
+        // Minimal critical JavaScript for menu toggle (executes immediately)
+        (function() {
+            // Only initialize if DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMinimal);
+            } else {
+                initMinimal();
+            }
+            
+            function initMinimal() {
+                const menuToggle = document.getElementById('menuToggle');
+                const sidePanel = document.getElementById('sidePanel');
+                const closePanel = document.getElementById('closePanel');
+                const overlay = document.getElementById('overlay');
+                
+                if (!menuToggle || !sidePanel || !closePanel || !overlay) return;
+                
+                menuToggle.addEventListener('click', function() {
+                    sidePanel.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                closePanel.addEventListener('click', function() {
+                    sidePanel.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+                
+                overlay.addEventListener('click', function() {
+                    sidePanel.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
