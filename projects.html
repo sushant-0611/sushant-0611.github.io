@@ -1,41 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SushTech Innovation | Project Solutions</title>
-  <!-- Font Awesome (free icons) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts (Poppins) -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SushTech | Projects & Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ===== THEME (matches style.css) ===== */
+        :root {
+            --primary: #2563EB;
+            --accent: #3B82F6;
+            --dark-bg: #030712;
+            --card-bg: #111827;
+            --text-primary: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --border-color: #1F2937;
+            --glow-color: rgba(37,99,235,0.5);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* header (reused) */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(3,7,18,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            height: 80px;
+            z-index: 1000;
+        }
+        .logo img { height: 50px; width: auto; }
+        .menu-icon {
+            font-size: 32px;
+            cursor: pointer;
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .menu-icon:hover { color: var(--accent); }
+
+        /* side panel */
+        .side-panel {
+            position: fixed;
+            top: 0; right: -350px;
+            width: 320px;
+            height: 100vh;
+            background: var(--card-bg);
+            border-left: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: right 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 40px rgba(0,0,0,0.7);
+            overflow-y: auto;
+        }
+        .side-panel.active { right: 0; }
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .panel-logo img { height: 35px; }
+        .close-icon {
+            font-size: 28px;
+            cursor: pointer;
+            transition: 0.3s;
+            padding: 0 10px;
+        }
+        .close-icon:hover { color: var(--accent); transform: rotate(90deg); }
+        .panel-nav {
+            flex: 1;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .panel-link {
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border-left: 4px solid transparent;
+            transition: 0.3s;
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.02);
+        }
+        .panel-link:hover { border-left-color: var(--accent); color: var(--accent); background: rgba(37,99,235,0.15); }
+        .panel-footer {
+            padding: 25px 20px;
+            border-top: 2px solid var(--border-color);
+            color: var(--text-muted);
+            text-align: center;
+        }
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            display: none;
+        }
+        .overlay.active { display: block; }
+
+        /* page title */
+        .page-title {
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+        .page-title h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 700;
+        }
+        .page-title h1 span { color: var(--accent); }
+        .page-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 10px auto 0;
+        }
+
+        /* project grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 30px 0 60px;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 30px -10px rgba(59,130,246,0.2);
+        }
+        .project-image {
+            height: 200px;
+            overflow: hidden;
+            background: #1a2538;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--accent);
+        }
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+        .project-card:hover .project-image img { transform: scale(1.05); }
+        .project-info {
+            padding: 24px 20px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-category {
+            display: inline-block;
+            background: rgba(59,130,246,0.15);
+            color: var(--accent);
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            align-self: flex-start;
+        }
+        .project-info h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .project-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .project-tags span {
+            background: rgba(255,255,255,0.06);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+        .project-btn {
+            padding: 10px 20px;
+            border-radius: 40px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            text-align: center;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            align-self: flex-start;
+        }
+        .project-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37,99,235,0.3);
+        }
+        .project-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            margin-left: 10px;
+        }
+        .project-btn.secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .project-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+
+        /* footer */
+        .footer-bar {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* responsive */
+        @media (max-width: 768px) {
+            header { padding: 12px 4%; }
+            .project-grid { grid-template-columns: 1fr; }
+            .project-image { height: 180px; }
+        }
+        @media (max-width: 480px) {
+            .project-image { height: 160px; }
+        }
+    </style>
 </head>
 <body>
-  <!-- Header -->
+
+    <!-- ===== HEADER (matching index.html) ===== -->
     <header>
         <div class="logo">
-            <img src="SushTech_logo_transparent1.webp" loading="eager" fetchpriority="high" alt="SushTech Logo" width="50" height="50">
+            <img src="SushTech_logo_transparent1.webp" alt="SushTech Logo" width="50" height="50">
         </div>
-
         <div class="menu-icon" id="menuToggle">☰</div>
 
-        <!-- Right Side Panel Menu - Reordered to match new sequence -->
+        <!-- Side Panel -->
         <div class="side-panel" id="sidePanel">
             <div class="panel-header">
                 <div class="panel-logo">
-                    <img src="SushTech_logo_transparent1.webp" loading="lazy" alt="Logo">
+                    <img src="SushTech_logo_transparent1.webp" alt="Logo">
                 </div>
                 <div class="close-icon" id="closePanel">✕</div>
             </div>
             <nav class="panel-nav">
-                <a href="#home" class="panel-link">Home</a>
-                <a href="#why-choose" class="panel-link">Why Us</a>
-                <a href="#features" class="panel-link">Features</a>
-                <a href="projects.html" class="panel-link">Projects</a>
-                <a href="#demo" class="panel-link">Demo Websites</a>
-                <a href="#about" class="panel-link">About</a>
-                <a href="#contact" class="panel-link">Contact</a>
+                <a href="project.html" class="panel-link">Home</a>
+                <a href="project.html#why-choose" class="panel-link">Why Us</a>
+                <a href="project.html#features" class="panel-link">Features</a>
+                <a href="projects.html" class="panel-link active" style="border-left-color:var(--accent);">Projects</a>
+                <a href="project.html#demo" class="panel-link">Demo Websites</a>
+                <a href="project.html#about" class="panel-link">About</a>
+                <a href="project.html#contact" class="panel-link">Contact</a>
             </nav>
             <div class="panel-footer">
                 <p>© 2026 SushTech</p>
@@ -43,200 +310,182 @@
         </div>
     </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container">
-      <h2>Complete Project Solutions <br><span class="highlight">for Engineering Students</span></h2>
-      <p>Your Idea. Our Expertise. Your Success. One Stop Solution for All Your College Project Needs.</p>
-      <div class="hero-buttons">
-        <a href="#services" class="btn-primary">Explore Services</a>
-        <a href="#contact" class="btn-secondary">Contact Us</a>
-      </div>
-    </div>
-  </section>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <h2 class="section-title">📌 Our Services</h2>
-    <div class="grid-3">
-      <div class="service-card"><i class="fas fa-code"></i><h3>Software Development</h3><p>Custom software, web & mobile apps, databases and more.</p><span class="badge">Full stack · APIs</span></div>
-      <div class="service-card"><i class="fas fa-microchip"></i><h3>Hardware Development</h3><p>Arduino, ESP32, Raspberry Pi, IoT, Robotics, Embedded.</p><span class="badge">IoT · Embedded</span></div>
-      <div class="service-card"><i class="fas fa-brain"></i><h3>AI / ML Solutions</h3><p>Machine Learning, Deep Learning, Computer Vision, Data Analytics.</p><span class="badge">TensorFlow · PyTorch</span></div>
-      <div class="service-card"><i class="fas fa-robot"></i><h3>AI / ML Solutions</h3><p>Machine Learning, Deep Learning, Computer Vision, Data Analytics.</p><span class="badge">NLP · Computer Vision</span></div>
-      <div class="service-card"><i class="fas fa-life-ring"></i><h3>Project Support</h3><p>Documentation, PPT, Viva Preparation, Deployment & Guidance.</p><span class="badge">Guidance · Deployment</span></div>
-      <div class="service-card"><i class="fas fa-hand-holding-heart"></i><h3>Project Support</h3><p>Documentation, PPT, Viva Preparation, Deployment & Guidance.</p><span class="badge">Viva · Documentation</span></div>
-    </div>
-  </section>
+    <!-- ===== PROJECTS PAGE CONTENT ===== -->
+    <section class="container">
+        <div class="page-title">
+            <h1>Our <span>Projects</span></h1>
+            <p>Explore a selection of websites we've built for clients across industries.</p>
+        </div>
 
-  <!-- FEATURES -->
-  <section style="background: var(--dark-bg);">
-    <h2 class="section-title">✨ Why Choose Us</h2>
-    <div class="feature-grid">
-      <div class="feature-item"><i class="fas fa-check-circle"></i><h4>Quality Work</h4></div>
-      <div class="feature-item"><i class="fas fa-clock"></i><h4>On-Time Delivery</h4></div>
-      <div class="feature-item"><i class="fas fa-tag"></i><h4>Affordable Pricing</h4></div>
-      <div class="feature-item"><i class="fas fa-headset"></i><h4>24/7 Support</h4></div>
-      <div class="feature-item"><i class="fas fa-lock"></i><h4>100% Confidential</h4></div>
-    </div>
-  </section>
-
-  <!-- WHY CHOOSE (extended) -->
-  <section>
-    <h2 class="section-title">💡 Why Choose Us?</h2>
-    <div class="why-grid">
-      <div class="why-item"><i class="fas fa-users"></i><span>Experienced & Dedicated Team</span></div>
-      <div class="why-item"><i class="fas fa-lightbulb"></i><span>Innovative & Practical Solutions</span></div>
-      <div class="why-item"><i class="fas fa-graduation-cap"></i><span>Student-Friendly Approach</span></div>
-      <div class="why-item"><i class="fas fa-arrow-circle-right"></i><span>Complete Guidance & Support</span></div>
-    </div>
-    <div style="text-align:center; margin-top:20px;">
-      <span style="background: var(--card-bg); padding: 0.8rem 2rem; border-radius: 40px; border:1px solid var(--accent); color: var(--accent); font-weight:600;">📢 YOUR PROJECT IS OUR PRIORITY</span>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="contact-section">
-    <h2 class="section-title">📞 Contact Us</h2>
-    <div class="contact-wrapper">
-      <div class="contact-info">
-        <p><i class="fas fa-phone"></i> <strong>+91 9021496257</strong></p>
-        <p><i class="fas fa-envelope"></i> sushtech.service@gmail.com</p>
-        <p><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra, India</p>
-        <p style="border-top:1px solid var(--border-color); padding-top:15px; margin-top:15px;">
-          <i class="fas fa-clock"></i> Mon–Sat · 9AM – 8PM
-        </p>
-      </div>
-      <div class="qr-box">
-        <i class="fas fa-qrcode"></i>
-        <span style="color: var(--text-primary); font-weight:500;">Scan to Visit</span>
-        <span style="color: var(--text-muted); font-size:0.9rem;">Our Website</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-   <footer class="professional-footer">
-        <div class="container">
-            <!-- Main Footer Grid -->
-            <div class="footer-grid">
-                <!-- Column 1 - Company -->
-                <div class="footer-col">
-                    <h5>Company</h5>
-                    <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#why-choose">Why Choose Us</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
+        <div class="project-grid">
+            <!-- Wedding Project 1 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Wedding website" loading="lazy">
                 </div>
-                
-                <!-- Column 2 - Services -->
-                <div class="footer-col">
-                    <h5>Services</h5>
-                    <ul>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#demo">Wedding Websites</a></li>
-                        <li><a href="#demo">Website Development</a></li>
-                        <li><a href="#demo">E-Commerce Solutions</a></li>
-                        <li><a href="#features">SEO Services</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Column 3 - Support -->
-                <div class="footer-col">
-                    <h5>Support</h5>
-                    <ul>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Column 4 - Connect -->
-                <div class="footer-col">
-                    <h5>Connect</h5>
-                    <div class="social-links">
-                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <div class="project-info">
+                    <span class="project-category"><i class="fas fa-heart"></i> Wedding</span>
+                    <h3>Aarav & Sneha</h3>
+                    <p>Elegant wedding invitation website with RSVP, gallery, and countdown timer.</p>
+                    <div class="project-tags">
+                        <span>RSVP</span>
+                        <span>Gallery</span>
+                        <span>Countdown</span>
+                        <span>Mobile-first</span>
                     </div>
-                    <div class="mt-3">
-                        <span class="badge">📍 Pune, India</span>
+                    <div class="project-buttons">
+                        <a href="#" class="project-btn">Live Demo</a>
+                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Bottom Footer -->
-            <div class="footer-bottom">
-                <div class="copyright">
-                    <p>© 2025 SushTech. All rights reserved. | Website Developer in Pune</p>
+            <!-- Wedding Project 2 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.pexels.com/photos/3014851/pexels-photo-3014851.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Wedding website" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <span class="project-category"><i class="fas fa-ring"></i> Wedding</span>
+                    <h3>Rohan & Priya</h3>
+                    <p>Modern wedding site with integrated Google Maps, event schedule and photo gallery.</p>
+                    <div class="project-tags">
+                        <span>Maps</span>
+                        <span>Schedule</span>
+                        <span>Gallery</span>
+                        <span>RSVP</span>
+                    </div>
+                    <div class="project-buttons">
+                        <a href="#" class="project-btn">Live Demo</a>
+                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Project 1 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Business website" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <span class="project-category"><i class="fas fa-briefcase"></i> Business</span>
+                    <h3>Startup Agency</h3>
+                    <p>Professional landing page for a digital marketing agency with contact form and service showcase.</p>
+                    <div class="project-tags">
+                        <span>Landing</span>
+                        <span>Contact Form</span>
+                        <span>Services</span>
+                        <span>SEO Ready</span>
+                    </div>
+                    <div class="project-buttons">
+                        <a href="#" class="project-btn">Live Demo</a>
+                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Project 2 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.pexels.com/photos/34577/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600" alt="Restaurant website" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <span class="project-category"><i class="fas fa-utensils"></i> Restaurant</span>
+                    <h3>Spice Garden</h3>
+                    <p>Restaurant website with menu display, reservation system and location map.</p>
+                    <div class="project-tags">
+                        <span>Menu</span>
+                        <span>Reservation</span>
+                        <span>Maps</span>
+                        <span>Gallery</span>
+                    </div>
+                    <div class="project-buttons">
+                        <a href="#" class="project-btn">Live Demo</a>
+                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-Commerce Project 1 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.pexels.com/photos/298863/pexels-photo-298863.jpeg?auto=compress&cs=tinysrgb&w=600" alt="E-commerce store" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <span class="project-category"><i class="fas fa-shopping-cart"></i> E-Commerce</span>
+                    <h3>Fashion Hub</h3>
+                    <p>Full-featured online clothing store with cart, payment gateway, and product filters.</p>
+                    <div class="project-tags">
+                        <span>Cart</span>
+                        <span>Payments</span>
+                        <span>Filters</span>
+                        <span>Inventory</span>
+                    </div>
+                    <div class="project-buttons">
+                        <a href="#" class="project-btn">Live Demo</a>
+                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-Commerce Project 2 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.pexels.com/photos/129208/pexels-photo-129208.jpeg?auto=compress&cs=tinysrgb&w=600" alt="E-commerce store" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <span class="project-category"><i class="fas fa-gem"></i> E-Commerce</span>
+                    <h3>Jewelry Store</h3>
+                    <p>Elegant online jewelry store with high-res product images and secure checkout.</p>
+                    <div class="project-tags">
+                        <span>Gallery</span>
+                        <span>Checkout</span>
+                        <span>Secure</span>
+                        <span>Responsive</span>
+                    </div>
+                    <div class="project-buttons">
+                        <a href="#" class="project-btn">Live Demo</a>
+                        <a href="project.html#contact" class="project-btn secondary">Get Quote</a>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer-bar">
+        <div class="container">
+            <p>© 2026 SushTech. All rights reserved. | <a href="project.html" style="color:var(--accent);">SushTech Innovation</a></p>
+        </div>
     </footer>
 
-  <!-- WHATSAPP FLOAT -->
-  <a href="#" class="whatsapp-float" aria-label="WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
-  <!-- BACK TO TOP -->
-  <div class="back-to-top" id="backToTop" aria-label="Back to top">
-    <i class="fas fa-arrow-up"></i>
-  </div>
-
-  <!-- SIMPLE SCRIPT FOR BACK TO TOP & MENU (demo) -->
-  <script>
-    // Back to top
-    const backBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) backBtn.classList.add('show');
-      else backBtn.classList.remove('show');
-    });
-    backBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    </script>
-  <script>
-        // Minimal critical JavaScript for menu toggle (executes immediately)
+    <!-- ===== SCRIPTS (panel toggle) ===== -->
+    <script>
         (function() {
-            // Only initialize if DOM is ready
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initMinimal);
-            } else {
-                initMinimal();
+            const menuToggle = document.getElementById('menuToggle');
+            const sidePanel = document.getElementById('sidePanel');
+            const closePanel = document.getElementById('closePanel');
+            const overlay = document.getElementById('overlay');
+
+            function openPanel() {
+                sidePanel.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
-            
-            function initMinimal() {
-                const menuToggle = document.getElementById('menuToggle');
-                const sidePanel = document.getElementById('sidePanel');
-                const closePanel = document.getElementById('closePanel');
-                const overlay = document.getElementById('overlay');
-                
-                if (!menuToggle || !sidePanel || !closePanel || !overlay) return;
-                
-                menuToggle.addEventListener('click', function() {
-                    sidePanel.classList.add('active');
-                    overlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-                
-                closePanel.addEventListener('click', function() {
-                    sidePanel.classList.remove('active');
-                    overlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-                
-                overlay.addEventListener('click', function() {
-                    sidePanel.classList.remove('active');
-                    overlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
+            function closePanelFn() {
+                sidePanel.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
             }
+
+            if (menuToggle) menuToggle.addEventListener('click', openPanel);
+            if (closePanel) closePanel.addEventListener('click', closePanelFn);
+            if (overlay) overlay.addEventListener('click', closePanelFn);
         })();
     </script>
+
 </body>
 </html>
